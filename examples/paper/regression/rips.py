@@ -7,11 +7,13 @@ from topologylayer.nn import *
 from util import penalized_ls, run_trials, run_trials_ols, get_stats, gen_snr_stats, gen_dim_stats
 from penalties import NormLoss
 
+import os
+from pathlib import Path
 
 class TopLoss(nn.Module):
     def __init__(self):
         super(TopLoss, self).__init__()
-        self.pdfn = RipsLayer(maxdim=0)
+        self.pdfn = RipsLayer(100, maxdim=0)
         self.topfn = SumBarcodeLengths()
 
     def forward(self, beta):
@@ -22,7 +24,7 @@ class TopLoss(nn.Module):
 class TopLoss2(nn.Module):
     def __init__(self):
         super(TopLoss2, self).__init__()
-        self.pdfn = RipsLayer(maxdim=0)
+        self.pdfn = RipsLayer(100, maxdim=0)
         self.topfn = PartialSumBarcodeLengths(dim=0, skip=2)
 
     def forward(self, beta):
@@ -54,7 +56,13 @@ def save_csvs(problem, pen, mses, qs, lamopt):
 
 problem = '123'
 beta0 = generate_rips_problem([1., 2., 3.], p)
-np.savetxt('results/rips_' + problem + '_beta0.csv', beta0, delimiter=',')
+
+fname = 'results/rips_' + problem + '_beta0.csv'
+os.makedirs(os.path.dirname(fname))
+Path(fname).touch()
+np.savetxt(fname, beta0, delimiter=',')
+#np.savetxt('results/rips_' + problem + '_beta0.csv', beta0, delimiter=',')
+
 mses, qs, lamopt = gen_dim_stats(beta0, ns, sigma, lams, None, ntrials=100, maxiter=200, ncv=50)
 save_csvs(problem, 'ols', mses, qs, lamopt)
 mses, qs, lamopt = gen_dim_stats(beta0, ns, sigma, lams, lpen1, ntrials=100, maxiter=200, ncv=50)
