@@ -1,5 +1,6 @@
 # Example from README
 from topologylayer.nn import AlphaLayer, BarcodePolyFeature
+
 # fix matplotlib on CentOS
 import matplotlib
 matplotlib.use('Agg')
@@ -28,7 +29,7 @@ fig, ax = plt.subplots(ncols=2, figsize=(10,5))
 ax[0].scatter(data[:,0], data[:,1])
 ax[0].set_title("Before")
 ax[1].scatter(y[:,0], y[:,1])
-ax[1].set_title("After")
+ax[1].set_title("After high-order homology")
 for i in range(2):
     ax[i].set_yticklabels([])
     ax[i].set_xticklabels([])
