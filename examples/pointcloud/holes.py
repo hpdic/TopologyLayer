@@ -1,6 +1,11 @@
 # Example from README
 from topologylayer.nn import AlphaLayer, BarcodePolyFeature
+# fix matplotlib on CentOS
+import matplotlib
+matplotlib.use('Agg')
+
 import torch, numpy as np, matplotlib.pyplot as plt
+
 
 # random pointcloud
 np.random.seed(0)
@@ -28,4 +33,4 @@ for i in range(2):
     ax[i].set_yticklabels([])
     ax[i].set_xticklabels([])
     ax[i].tick_params(bottom=False, left=False)
-plt.savefig('holes.png')
+plt.savefig('holes_aaai2021.png')
