@@ -49,19 +49,19 @@ ns = np.arange(25, 145, 10)
 def save_csvs(problem, pen, lam, mse, be):
     fname = 'results2/alpha_' + problem + '_mses_' + pen + '.csv'
 
-    os.makedirs(os.path.dirname(fname), exist_ok=True)
+    os.makedirs(os.path.dirname(fname))
     Path(fname).touch()
 
     np.savetxt(fname, mse, delimiter=',')
 
     fname = 'results2/alpha_' + problem + '_bes_' + pen + '.csv'
-    os.makedirs(os.path.dirname(fname), exist_ok=True)
+    os.makedirs(os.path.dirname(fname))
     Path(fname).touch()
 
     np.savetxt(fname, be, delimiter=',')
 
     fname = 'results2/alpha_' + problem + '_lam_' + pen + '.csv'
-    os.makedirs(os.path.dirname(fname), exist_ok=True)
+    os.makedirs(os.path.dirname(fname))
     Path(fname).touch()
 
     np.savetxt(fname, lam, delimiter=',')
@@ -71,7 +71,7 @@ problem = '123'
 beta0 = generate_rips_problem([1., 2., 3.], p)
 
 fname = './results2/alpha_' + problem + '_beta0.csv'
-os.makedirs(os.path.dirname(fname), exist_ok=True)
+os.makedirs(os.path.dirname(fname))
 Path(fname).touch()
 
 np.savetxt(fname, beta0, delimiter=',')
@@ -91,7 +91,7 @@ problem = '101'
 beta0 = generate_rips_problem([-1., 0., 1.], p)
 
 fname = 'results2/alpha_' + problem + '_beta0.csv'
-os.makedirs(os.path.dirname(fname), exist_ok=True)
+os.makedirs(os.path.dirname(fname))
 Path(fname).touch()
 
 np.savetxt(fname, beta0, delimiter=',')
