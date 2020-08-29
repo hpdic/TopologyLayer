@@ -13,6 +13,7 @@ from pathlib import Path
 class TopLoss(nn.Module):
     def __init__(self):
         super(TopLoss, self).__init__()
+        #the following method requires the total number of points, I just give it 100 for now.
         self.pdfn = RipsLayer(100, maxdim=0)
         self.topfn = SumBarcodeLengths()
 
