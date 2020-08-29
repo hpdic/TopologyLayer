@@ -8,6 +8,8 @@ from util import penalized_ls, run_trials, run_trials_ols, get_stats, gen_snr_st
 from util import gen_mse_be
 from penalties import NormLoss
 
+from pathlib import Path
+import os
 
 class TopLoss(nn.Module):
     def __init__(self):
@@ -46,16 +48,33 @@ ns = np.arange(25, 145, 10)
 
 def save_csvs(problem, pen, lam, mse, be):
     fname = 'results2/alpha_' + problem + '_mses_' + pen + '.csv'
+
+    os.makedirs(os.path.dirname(fname), exist_ok=True)
+    Path(fname).touch()
+
     np.savetxt(fname, mse, delimiter=',')
+
     fname = 'results2/alpha_' + problem + '_bes_' + pen + '.csv'
+    os.makedirs(os.path.dirname(fname), exist_ok=True)
+    Path(fname).touch()
+
     np.savetxt(fname, be, delimiter=',')
+
     fname = 'results2/alpha_' + problem + '_lam_' + pen + '.csv'
+    os.makedirs(os.path.dirname(fname), exist_ok=True)
+    Path(fname).touch()
+
     np.savetxt(fname, lam, delimiter=',')
 
 
 problem = '123'
 beta0 = generate_rips_problem([1., 2., 3.], p)
-np.savetxt('results2/alpha_' + problem + '_beta0.csv', beta0, delimiter=',')
+
+fname = './results2/alpha_' + problem + '_beta0.csv'
+os.makedirs(os.path.dirname(fname), exist_ok=True)
+Path(fname).touch()
+
+np.savetxt(fname, beta0, delimiter=',')
 lam, mse, be = gen_mse_be(beta0, ns, lams, tpen1, sigma=sigma)
 save_csvs(problem, 'tpen1', lam, mse, be)
 lam, mse, be = gen_mse_be(beta0, ns, lams, tpen2, sigma=sigma)
@@ -70,7 +89,12 @@ save_csvs(problem, 'lpen2', lam, mse, be)
 
 problem = '101'
 beta0 = generate_rips_problem([-1., 0., 1.], p)
-np.savetxt('results2/alpha_' + problem + '_beta0.csv', beta0, delimiter=',')
+
+fname = 'results2/alpha_' + problem + '_beta0.csv'
+os.makedirs(os.path.dirname(fname), exist_ok=True)
+Path(fname).touch()
+
+np.savetxt(fname, beta0, delimiter=',')
 lam, mse, be = gen_mse_be(beta0, ns, lams, tpen1, sigma=sigma)
 save_csvs(problem, 'tpen1', lam, mse, be)
 lam, mse, be = gen_mse_be(beta0, ns, lams, tpen2, sigma=sigma)
