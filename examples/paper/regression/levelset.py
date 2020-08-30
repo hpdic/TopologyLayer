@@ -7,6 +7,7 @@ from topologylayer.nn import *
 from util import penalized_ls, run_trials, run_trials_ols, get_stats, gen_snr_stats, gen_dim_stats
 from penalties import SobLoss
 
+import os
 
 class TopLoss(nn.Module):
     def __init__(self, p):
@@ -36,6 +37,11 @@ tpen1 = TopLoss(p) # sum of barcodes
 tpen2 = TopLoss2(p) # sum of barcodes after 2
 spen1 = SobLoss(p=1) # TV regularization
 spen2 = SobLoss(p=2) # Sobolev-type regularization
+
+# create the output directory
+import os
+if not os.path.exists('results'):
+    os.makedirs('results')
 
 # run regularization trials
 sigma = 0.1

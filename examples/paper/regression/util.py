@@ -131,7 +131,7 @@ def get_stats_lam(beta0, n, sigma, lams, pen, ntrials=100, maxiter=100, verbose=
     qs = []
     for lam in lams:
         if verbose:
-            print lam
+            print(lam)
         lmean, lqs = get_stats(beta0, n, sigma, lam, pen, ntrials=ntrials, maxiter=maxiter)
         means.append(lmean)
         qs.append(lqs)
