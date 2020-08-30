@@ -55,12 +55,17 @@ def save_csvs(problem, pen, mses, qs, lamopt):
     np.savetxt(fname, lamopt, delimiter=',')
 
 
+# create the output directory
+import os
+if not os.path.exists('results'):
+    os.makedirs('results')
+
 problem = '123'
 beta0 = generate_rips_problem([1., 2., 3.], p)
 
 fname = 'results/rips_' + problem + '_beta0.csv'
-os.makedirs(os.path.dirname(fname))
-Path(fname).touch()
+#os.makedirs(os.path.dirname(fname))
+#Path(fname).touch()
 np.savetxt(fname, beta0, delimiter=',')
 #np.savetxt('results/rips_' + problem + '_beta0.csv', beta0, delimiter=',')
 
