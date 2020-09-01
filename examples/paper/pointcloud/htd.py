@@ -17,17 +17,18 @@ import torchvision
 import torchvision.datasets as datasets
 mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
 mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
-x, _ = mnist_testset[7777]
+x, _ = mnist_testset[6666]
 # x.show()
 # print(type(x))
 data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x))))
-print(type(data_greylevel))
-print(data_greylevel.shape)
-print(data_greylevel)
+# print(type(data_greylevel))
+# print(data_greylevel.shape)
+# print(data_greylevel)
 
+#convert a grey-level image into list of binary dots
 k_tot = np.count_nonzero(data_greylevel)
 data = np.zeros(shape=(k_tot,2))
-len = 28
+len = 28 #the MNIST images are always 28*28
 k = 0
 for i in range(len):
     for j in range(len):
@@ -35,9 +36,9 @@ for i in range(len):
             data[k] = [i,j]
             k = k + 1
 print(data.shape)
-print(data)
+# print(data)
 
-# folder for storing figures
+# folder for storing figures of high-order topological denoising
 figfolder = 'htd_figures/'
 import os
 if not os.path.exists(figfolder):
@@ -47,7 +48,6 @@ if not os.path.exists(figfolder):
 # np.random.seed(0)
 
 # initial pointcloud
-# TODO: input a MINST image
 # num_samples = 100
 # data = np.random.rand(num_samples, 2)
 # print(data.shape)
@@ -107,7 +107,10 @@ plt.savefig(figfolder + 'uniform-H1.png')
 # decrease H0
 print("Decrease H0")
 x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
+print(x)
+print(type(x))
 layer = AlphaLayer(maxdim=0)
+exit(0)
 f2 = BarcodePolyFeature(0,2,0)
 lr=1e-2
 optimizer = torch.optim.Adam([x], lr=lr)
@@ -117,6 +120,8 @@ for i in range(100):
     loss = adjust * f2(layer(x))
     loss.backward()
     optimizer.step()
+    if loss.item() <= 2.0: # should have some eplison to avoid overfitting
+        break
     if (0 == i % 5):
         print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
 
@@ -158,10 +163,10 @@ optimizer = torch.optim.Adam([x], lr=lr)
 layer = AlphaLayer(maxdim=1)
 f3 = BarcodePolyFeature(1,2,1)
 f4 = BarcodePolyFeature(0,2,0)
-for i in range(100):
+for i in range(200):
     optimizer.zero_grad()
     dgminfo = layer(x)
-    loss = -f3(dgminfo) + f4(dgminfo)
+    loss = -f3(dgminfo)*.5 + f4(dgminfo)*2
     loss.backward()
     optimizer.step()
     # print(type(loss.item()))
