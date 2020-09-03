@@ -34,3 +34,46 @@ print(x.t().mm(y).shape) # Outer product of (3,1) and (1,3), prints "torch.Size(
 print(x.mm(y.t())) # Dot product of (1,3) and (3,1), prints "tensor([[12]])"
 print(torch.mm(x,y.t())) # Same dot product/inner product, prints "tensor([[12]])""
 print(torch.matmul(x,y.t())) # Identical to above, prints "tensor([[12]])"
+
+
+#combining tensors
+x = torch.tensor([[1,2,3]])
+y = torch.tensor([[2,2,2]])
+print(x.shape) # Prints torch.Size([1, 3]), x is a row vector
+print(y.shape) # Prints torch.Size([1, 3]), y is a row vector
+print(torch.stack([x,y]).shape) # prints torch.Size([2, 1, 3])
+print(torch.cat([x,y]).shape) #  prints "torch.Size([2, 3])"
+
+
+'''
+credit goes to: https://pytorch.org/tutorials/recipes/recipes/defining_a_neural_network.html
+'''
+
+import torch.nn as nn
+import torch.nn.functional as F
+
+class Net(nn.Module):
+    def __init__(self):
+      super(Net, self).__init__()
+
+      # First 2D convolutional layer, taking in 1 input channel (image),
+      # outputting 32 convolutional features, with a square kernel size of 3
+      self.conv1 = nn.Conv2d(1, 32, 3, 1)
+      # Second 2D convolutional layer, taking in the 32 input layers,
+      # outputting 64 convolutional features, with a square kernel size of 3
+      self.conv2 = nn.Conv2d(32, 64, 3, 1)
+
+      # Designed to ensure that adjacent pixels are either all 0s or all active
+      # with an input probability
+      self.dropout1 = nn.Dropout2d(0.25)
+      self.dropout2 = nn.Dropout2d(0.5)
+
+      # First fully connected layer
+      self.fc1 = nn.Linear(9216, 128)
+      # Second fully connected layer that outputs our 10 labels
+      self.fc2 = nn.Linear(128, 10)
+
+my_nn = Net()
+print(my_nn)
+
+
