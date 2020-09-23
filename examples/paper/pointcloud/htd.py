@@ -24,6 +24,11 @@ x.show()
 print(type(y))
 print("y =", y)
 print(len(mnist_testset))
+
+for i in range(len(mnist_testset)):
+    if 0 == i % 500:
+        print("i = ", i)
+
 exit(0)
 
 data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x))))
