@@ -192,6 +192,8 @@ tensor_y = torch.Tensor(my_y)
 my_dataset = TensorDataset(tensor_x,tensor_y) # create your datset
 my_dataloader = DataLoader(my_dataset) # create your dataloader
 
+##TODO: convert the MINST data by HTD and feed the CNN below.
+
 print("looks good")
 exit(0)
 
