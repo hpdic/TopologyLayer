@@ -20,7 +20,7 @@ mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transf
 
 index = 3000
 x, y = mnist_trainset[index]
-x.show()
+# x.show()
 # print(type(x))
 
 # print(type(y))
@@ -72,11 +72,13 @@ if not os.path.exists(figfolder):
 # data = np.random.rand(num_samples, 2)
 # print(data.shape)
 
-plt.figure(figsize=(5,5))
+
+fig=plt.figure(figsize=(5,5))
 plt.scatter(data[:,0], data[:,1])
 plt.axis('equal')
 plt.axis('off')
 plt.savefig(figfolder + 'uniform.png')
+plt.close(fig)
 #
 # # alpha layer
 # layer = AlphaLayer(maxdim=1)
@@ -177,28 +179,30 @@ plt.savefig(figfolder + 'uniform+H0.png')
 
 """
 # Fun combination of H0, H1
-print("Increase H1, decrease H0")
-x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
-lr=1e-2
-optimizer = torch.optim.Adam([x], lr=lr)
-layer = AlphaLayer(maxdim=1)
-f3 = BarcodePolyFeature(1,2,1)
-f4 = BarcodePolyFeature(0,2,0)
-for i in range(1000):
-    optimizer.zero_grad()
-    dgminfo = layer(x)
-    # loss = -f3(dgminfo) + f4(dgminfo)
-    loss = -f3(dgminfo)*.5 + f4(dgminfo)*2
-    loss.backward()
-    optimizer.step()
-    # print(type(loss.item()))
-    if loss.item() <= 5.0: # should have some eplison to avoid overfitting
-        break
-    if (i % 50 == 0):
-        print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
+# print("Increase H1, decrease H0")
+# x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
+# lr=1e-2
+# optimizer = torch.optim.Adam([x], lr=lr)
+# layer = AlphaLayer(maxdim=1)
+# f3 = BarcodePolyFeature(1,2,1)
+# f4 = BarcodePolyFeature(0,2,0)
+# for i in range(1000):
+#     optimizer.zero_grad()
+#     dgminfo = layer(x)
+#     # loss = -f3(dgminfo) + f4(dgminfo)
+#     loss = -f3(dgminfo)*.5 + f4(dgminfo)*2
+#     loss.backward()
+#     optimizer.step()
+#     # print(type(loss.item()))
+#     if loss.item() <= 5.0: # should have some eplison to avoid overfitting
+#         break
+#     if (i % 50 == 0):
+#         print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
 
-#TODO: enclose the above into a function:
-def topo_red(input):
+'''
+Preprocess the image with topological denoising
+'''
+def topo_reduce(input):
     x = torch.autograd.Variable(torch.tensor(input).type(torch.float), requires_grad=True)
     lr = 1e-2
     optimizer = torch.optim.Adam([x], lr=lr)
@@ -219,6 +223,7 @@ def topo_red(input):
             print("[Iter %d] [top loss: %f]" % (i, loss.item()))
     return x
 
+x = topo_reduce(data)
 y = x.detach().numpy().astype(int)
 
 # plt.figure(figsize=(5,5))
@@ -231,7 +236,8 @@ y = x.detach().numpy().astype(int)
 ma = np.zeros((28, 28))
 ma[tuple(y.T)] = 1
 # print("ma = ", ma)
-plt.figure(2)
+plt.figure(figsize=(5,5))
 ma_rot90 = np.rot90(np.array(ma))
 plt.imshow(ma_rot90);
 plt.savefig(figfolder + 'uniform_matrix.png')
+# fig.show()
