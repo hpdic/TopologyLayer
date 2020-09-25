@@ -197,6 +197,28 @@ for i in range(1000):
     if (i % 50 == 0):
         print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
 
+#TODO: enclose the above into a function:
+def topo_red(input):
+    x = torch.autograd.Variable(torch.tensor(input).type(torch.float), requires_grad=True)
+    lr = 1e-2
+    optimizer = torch.optim.Adam([x], lr=lr)
+    layer = AlphaLayer(maxdim=1)
+    f3 = BarcodePolyFeature(1, 2, 1)
+    f4 = BarcodePolyFeature(0, 2, 0)
+    for i in range(1000):
+        optimizer.zero_grad()
+        dgminfo = layer(x)
+        # loss = -f3(dgminfo) + f4(dgminfo)
+        loss = -f3(dgminfo) * .5 + f4(dgminfo) * 2
+        loss.backward()
+        optimizer.step()
+        # print(type(loss.item()))
+        if loss.item() <= 5.0:  # should have some eplison to avoid overfitting
+            break
+        if (i % 50 == 0):
+            print("[Iter %d] [top loss: %f]" % (i, loss.item()))
+    return x
+
 y = x.detach().numpy().astype(int)
 
 # plt.figure(figsize=(5,5))
