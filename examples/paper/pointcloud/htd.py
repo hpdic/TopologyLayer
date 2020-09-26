@@ -46,17 +46,20 @@ data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x))))
 # print(data_greylevel)
 
 #convert a grey-level image into list of binary dots
-k_tot = np.count_nonzero(data_greylevel)
-data = np.zeros(shape=(k_tot,2))
-len = 28 #the MNIST images are always 28*28
-k = 0
-for i in range(len):
-    for j in range(len):
-        if data_greylevel[i][j] != 0:
-            data[k] = [i,j]
-            k = k + 1
-print(data.shape)
-# print(data)
+# k_tot = np.count_nonzero(data_greylevel)
+# data = np.zeros(shape=(k_tot,2))
+# len = 28 #the MNIST images are always 28*28
+# k = 0
+# for i in range(len):
+#     for j in range(len):
+#         if data_greylevel[i][j] != 0:
+#             data[k] = [i,j]
+#             k = k + 1
+# print(data.shape)
+# print("data = ", data)
+data = np.asarray(np.nonzero(data_greylevel)).T
+
+# print("data2 = ", data2)
 
 # folder for storing figures of high-order topological denoising
 figfolder = 'htd_figures/'
@@ -83,122 +86,6 @@ plt.close(fig)
 # # alpha layer
 # layer = AlphaLayer(maxdim=1)
 
-"""
-# Increase H1
-print("Increase H1")
-x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
-f1 = BarcodePolyFeature(1,2,0)
-lr=1e-2
-optimizer = torch.optim.Adam([x], lr=lr)
-for i in range(100):
-    optimizer.zero_grad()
-    loss = -f1(layer(x))
-    loss.backward()
-    optimizer.step()
-    if (i % 5 == 4):
-        print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
-
-y = x.detach().numpy()
-plt.figure(figsize=(5,5))
-plt.scatter(y[:,0], y[:,1])
-plt.axis('equal')
-plt.axis('off')
-plt.savefig(figfolder + 'uniform+H1.png')
-
-# decrease H1
-print("Decrease H1")
-x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
-lr=1e-2
-optimizer = torch.optim.Adam([x], lr=lr)
-for i in range(100):
-    optimizer.zero_grad()
-    loss = f1(layer(x))
-    loss.backward()
-    optimizer.step()
-    if (i % 5 == 4):
-        print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
-
-y = x.detach().numpy()
-plt.figure(figsize=(5,5))
-plt.scatter(y[:,0], y[:,1])
-plt.axis('equal')
-plt.axis('off')
-plt.savefig(figfolder + 'uniform-H1.png')
-"""
-
-# decrease H0
-# print("Decrease H0")
-# x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
-# print(x)
-# print(type(x))
-# layer = AlphaLayer(maxdim=0)
-# f2 = BarcodePolyFeature(0,2,0)
-# lr=1e-2
-# optimizer = torch.optim.Adam([x], lr=lr)
-# adjust = 2 #default adjuster
-# for i in range(100):
-#     optimizer.zero_grad()
-#     loss = adjust * f2(layer(x))
-#     loss.backward()
-#     optimizer.step()
-#     if loss.item() <= 2.0: # should have some eplison to avoid overfitting
-#         break
-#     if (0 == i % 5):
-#         print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
-#
-# y = np.rint(x.detach().numpy())
-# print(y)
-# print(y.shape)
-# plt.figure(figsize=(5,5))
-# plt.scatter(y[:,0], y[:,1])
-# plt.axis('equal')
-# plt.axis('off')
-# plt.savefig(figfolder + 'adjust' + str(adjust) + '_uniform-H0.png')
-
-
-"""
-# increase H0
-print("Increase H0")
-x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
-lr=1e-2
-optimizer = torch.optim.Adam([x], lr=lr)
-for i in range(100):
-    optimizer.zero_grad()
-    loss = -f2(layer(x))
-    loss.backward()
-    optimizer.step()
-    if (i % 5 == 4):
-        print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
-
-y = x.detach().numpy()
-plt.figure(figsize=(5,5))
-plt.scatter(y[:,0], y[:,1])
-plt.axis('equal')
-plt.axis('off')
-plt.savefig(figfolder + 'uniform+H0.png')
-
-"""
-# Fun combination of H0, H1
-# print("Increase H1, decrease H0")
-# x = torch.autograd.Variable(torch.tensor(data).type(torch.float), requires_grad=True)
-# lr=1e-2
-# optimizer = torch.optim.Adam([x], lr=lr)
-# layer = AlphaLayer(maxdim=1)
-# f3 = BarcodePolyFeature(1,2,1)
-# f4 = BarcodePolyFeature(0,2,0)
-# for i in range(1000):
-#     optimizer.zero_grad()
-#     dgminfo = layer(x)
-#     # loss = -f3(dgminfo) + f4(dgminfo)
-#     loss = -f3(dgminfo)*.5 + f4(dgminfo)*2
-#     loss.backward()
-#     optimizer.step()
-#     # print(type(loss.item()))
-#     if loss.item() <= 5.0: # should have some eplison to avoid overfitting
-#         break
-#     if (i % 50 == 0):
-#         print ("[Iter %d] [top loss: %f]" % (i, loss.item()))
-
 '''
 Preprocess the image with topological denoising
 '''
@@ -207,13 +94,15 @@ def topo_reduce(input):
     lr = 1e-2
     optimizer = torch.optim.Adam([x], lr=lr)
     layer = AlphaLayer(maxdim=1)
+    f2 = BarcodePolyFeature(0, 2, 0)
     f3 = BarcodePolyFeature(1, 2, 1)
     f4 = BarcodePolyFeature(0, 2, 0)
     for i in range(1000):
         optimizer.zero_grad()
         dgminfo = layer(x)
+        # print("Increase H1, decrease H0")
         # loss = -f3(dgminfo) + f4(dgminfo)
-        loss = -f3(dgminfo) * .5 + f4(dgminfo) * 2
+        loss = -f3(dgminfo) * 1 + f4(dgminfo) * 20
         loss.backward()
         optimizer.step()
         # print(type(loss.item()))
@@ -224,7 +113,15 @@ def topo_reduce(input):
     return x
 
 x = topo_reduce(data)
+# print("x.type =", x.type)
 y = x.detach().numpy().astype(int)
+
+# TODO: process the training data
+# len = len(mnist_trainset)
+# len = 10
+# for i in range(len):
+#     x, y = mnist_trainset[i]
+
 
 # plt.figure(figsize=(5,5))
 # plt.scatter(y[:,0], y[:,1])
@@ -240,4 +137,5 @@ plt.figure(figsize=(5,5))
 ma_rot90 = np.rot90(np.array(ma))
 plt.imshow(ma_rot90);
 plt.savefig(figfolder + 'uniform_matrix.png')
-# fig.show()
+
+print("reduce pixels from", int(data.size/2), "to", int(y.size/2))

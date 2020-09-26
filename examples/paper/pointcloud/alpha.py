@@ -49,6 +49,7 @@ plt.axis('equal')
 plt.axis('off')
 plt.savefig(figfolder + 'uniform+H1.png')
 
+print("Inc H1: y.size =", y.size, "")
 
 # decrease H1
 print("Decrease H1")
@@ -70,6 +71,7 @@ plt.axis('equal')
 plt.axis('off')
 plt.savefig(figfolder + 'uniform-H1.png')
 
+print("Dec H1: y.size =", y.size, "")
 
 # decrease H0
 print("Decrease H0")
@@ -93,6 +95,7 @@ plt.axis('equal')
 plt.axis('off')
 plt.savefig(figfolder + 'uniform-H0.png')
 
+print("Dec H0: y.size =", y.size, "")
 
 # increase H0
 print("Increase H0")
@@ -114,6 +117,7 @@ plt.axis('equal')
 plt.axis('off')
 plt.savefig(figfolder + 'uniform+H0.png')
 
+print("Inc H0: y.size =", y.size, "")
 
 # Fun combination of H0, H1
 print("Increase H1, decrease H0")
@@ -138,3 +142,5 @@ plt.scatter(y[:,0], y[:,1])
 plt.axis('equal')
 plt.axis('off')
 plt.savefig(figfolder + 'uniform+H1-H0.png')
+
+print("Inc H1 Dec H0: y.size =", y.size, "")
