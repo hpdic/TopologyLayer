@@ -138,4 +138,4 @@ ma_rot90 = np.rot90(np.array(ma))
 plt.imshow(ma_rot90);
 plt.savefig(figfolder + 'uniform_matrix.png')
 
-print("reduce pixels from", int(data.size/2), "to", int(y.size/2))
+print("reduce pixels from", int(data.size/2), "to", np.count_nonzero(ma_rot90))
