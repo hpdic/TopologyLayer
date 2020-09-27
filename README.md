@@ -6,7 +6,7 @@
 ## conda install numpy
 ## conda install pytorch
 ## conda install torchvision -c pytorch
-## cd <installation path>
+## cd [installation_path]
 ## python setup.py install
 ## cd examples/paper/pointcloud
 ## python htd.py
