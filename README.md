@@ -1,3 +1,17 @@
+# HTD Comments
+
+## Install Ubuntu 20.04
+## Install Anaconda
+## conda install scipy
+## conda install numpy
+## conda install pytorch
+## conda install torchvision -c pytorch
+## cd <installation path>
+## python setup.py install
+## cd examples/paper/pointcloud
+## python htd.py
+
+
 # TopologyLayer
 
 Build Status: [![Build Status](https://travis-ci.com/bruel-gabrielsson/TopologyLayer.svg?branch=master)](https://travis-ci.com/bruel-gabrielsson/TopologyLayer)
