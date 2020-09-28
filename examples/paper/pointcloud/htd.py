@@ -90,7 +90,7 @@ if not os.path.exists(figfolder):
 '''
 Preprocess the image with topological denoising
 '''
-def topo_reduce(input, steps=200):
+def topo_reduce(input, steps=100):
     x = torch.autograd.Variable(torch.tensor(input).type(torch.float), requires_grad=True)
     lr = 1e-2
     optimizer = torch.optim.Adam([x], lr=lr)
@@ -117,6 +117,8 @@ def topo_reduce(input, steps=200):
 # print("x.type =", x.type)
 # y = x.detach().numpy().astype(int)
 
+
+## TODO: bump the len from 3 to full size and save it to the disk for future DataLoader
 len = len(mnist_trainset)
 len = 3
 trainset_htd = []
@@ -125,41 +127,42 @@ for i in range(len):
     x_i, y_i = mnist_trainset[i]
     print("type(x_i) =", type(x_i))
 
-    # # Show the original figure
-    # data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
-    # data = np.asarray(np.nonzero(data_greylevel)).T
-    # fig = plt.figure(figsize=(5, 5))
-    # plt.scatter(data[:, 0], data[:, 1])
-    # plt.axis('equal')
-    # plt.axis('off')
-    # plt.savefig(figfolder + 'origin_' + str(i) + '.png')
-    # plt.close(fig)
+    # Show the original figure
+    data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
+    data = np.asarray(np.nonzero(data_greylevel)).T
+    fig = plt.figure(figsize=(5, 5))
+    plt.scatter(data[:, 0], data[:, 1])
+    plt.axis('equal')
+    plt.axis('off')
+    plt.savefig(figfolder + 'origin_' + str(i) + '.png')
+    plt.close(fig)
 
     x_i_2d = np.asarray(np.nonzero(x_i)).T
     x_i_2d_htd = topo_reduce(x_i_2d).detach().numpy().astype(int)
-    x_i_htd = np.zeros((28, 28), dtype=int)
+    x_i_htd = np.zeros((28, 28))
     x_i_htd[tuple(x_i_2d_htd.T)] = 1
 
-    # # Show the denoised figure
-    # fig = plt.figure(i)
-    # plt.imshow(x_i_htd)
-    # plt.savefig(figfolder + "htd_" + str(i) + ".png")
-    # plt.close(fig)
+    # Show the denoised figure
+    fig = plt.figure(i)
+    plt.imshow(x_i_htd)
+    plt.savefig(figfolder + "htd_" + str(i) + ".png")
+    plt.close(fig)
 
     print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
 
-    trainset_htd.append((x_i_htd, y_i))
+    # Convert trainset_htd to Image and save as the new training set
+    print(type(x_i_htd))
+    new_im = Image.fromarray(x_i_htd)
+    # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
+    trainset_htd.append((new_im, y_i))
 
-    # # TODO: covert trainset_htd to Image and save as the new training set
-    # new_im = Image.fromarray(x_i_htd)
-    # new_im.save("numpy_altered_sample2.png")
-
-# Compare the denoised data and the originals
-data = np.array(mnist_trainset[len-1][0])
-# print(type(data))
-for i in range(28):
-    for j in range(28):
-        print("( i =", i, "j =", j, ":", data[i][j], " ?= ", trainset_htd[len-1][0][i][j])
+# # Compare the denoised data and the originals (the last one)
+# image_original = np.array(mnist_trainset[len-1][0])
+# image_htd = np.array(trainset_htd[len-1][0])
+# # print(type(data))
+# for i in range(28):
+#     for j in range(28):
+#         print("( i =", i, "j =", j, ":", image_original[i][j], " ?= ", image_htd[i][j])
 
 
 
