@@ -1,4 +1,7 @@
 # HTD Comments
+    Sample statistics on 9/28/2020 (up to 100 steps for every figure)
+        Space: 320 KB / 100 figures
+        Time (single thread): 991 seconds / 100 figures
 
 ## Install Ubuntu 20.04
 ## Install Anaconda

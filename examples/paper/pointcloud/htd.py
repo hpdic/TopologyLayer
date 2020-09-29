@@ -122,7 +122,7 @@ def topo_reduce(input, steps=100):
 
 # HTD processing
 len = len(mnist_trainset)
-len = 100
+len = 1000
 trainset_htd = []
 print("HTD started at", datetime.now().strftime("%H:%M:%S"))
 for i in range(len):
@@ -167,7 +167,6 @@ if not os.path.exists(htd_data_dir):
 htd_trainset = htd_data_dir + 'htd_trainset.pkl'
 file = open(htd_trainset, 'wb')
 pickle.dump(trainset_htd, file)
-print("\nPickled at", datetime.now().strftime("%H:%M:%S"))
 
 # # Load data from pickle
 # loaded_data = pickle.load(open(htd_trainset, 'rb'))
