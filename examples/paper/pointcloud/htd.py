@@ -10,7 +10,10 @@ from topologylayer.nn import *
 import torch
 import torch.nn as nn
 import numpy as np
+import os
+import pickle
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 # start working on mnist data
 import torchvision
@@ -69,7 +72,6 @@ data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x))))
 
 # folder for storing figures of high-order topological denoising
 figfolder = 'htd_figures/'
-import os
 if not os.path.exists(figfolder):
     os.mkdir(figfolder)
 
@@ -118,14 +120,16 @@ def topo_reduce(input, steps=100):
 # y = x.detach().numpy().astype(int)
 
 
-## TODO: bump the len from 3 to full size and save it to the disk for future DataLoader
+# HTD processing
 len = len(mnist_trainset)
-len = 3
+len = 100
 trainset_htd = []
+print("HTD started at", datetime.now().strftime("%H:%M:%S"))
 for i in range(len):
+    print("\n==========================================")
     print("Processing the " + str(i) + "-th figure.")
     x_i, y_i = mnist_trainset[i]
-    print("type(x_i) =", type(x_i))
+    # print("type(x_i) =", type(x_i))
 
     # Show the original figure
     data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
@@ -134,7 +138,7 @@ for i in range(len):
     plt.scatter(data[:, 0], data[:, 1])
     plt.axis('equal')
     plt.axis('off')
-    plt.savefig(figfolder + 'origin_' + str(i) + '.png')
+    # plt.savefig(figfolder + 'origin_' + str(i) + '.png')
     plt.close(fig)
 
     x_i_2d = np.asarray(np.nonzero(x_i)).T
@@ -145,16 +149,37 @@ for i in range(len):
     # Show the denoised figure
     fig = plt.figure(i)
     plt.imshow(x_i_htd)
-    plt.savefig(figfolder + "htd_" + str(i) + ".png")
+    # plt.savefig(figfolder + "htd_" + str(i) + ".png")
     plt.close(fig)
 
     print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
 
     # Convert trainset_htd to Image and save as the new training set
-    print(type(x_i_htd))
     new_im = Image.fromarray(x_i_htd)
     # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
     trainset_htd.append((new_im, y_i))
+print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
+
+# Save htd data into json files
+htd_data_dir = './htd_data/'
+if not os.path.exists(htd_data_dir):
+    os.mkdir(htd_data_dir)
+htd_trainset = htd_data_dir + 'htd_trainset.pkl'
+file = open(htd_trainset, 'wb')
+pickle.dump(trainset_htd, file)
+print("\nPickled at", datetime.now().strftime("%H:%M:%S"))
+
+# # Load data from pickle
+# loaded_data = pickle.load(open(htd_trainset, 'rb'))
+# print("type(loaded_data) =", type(loaded_data))
+# # Compare unpickled and original data
+# unpickled = np.array(loaded_data[len-1][0])
+# original = np.array(trainset_htd[len-1][0])
+# for i in range(28):
+#     for j in range(28):
+#         if unpickled[i][j] * original[i][j] > 0.5:
+#             print("( i =", i, "j =", j, ":", unpickled[i][j], " ?= ", original[i][j])
+
 
 # # Compare the denoised data and the originals (the last one)
 # image_original = np.array(mnist_trainset[len-1][0])
