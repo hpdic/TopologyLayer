@@ -1,0 +1,1203 @@
+HTD test set started at 20:37:07
+
+==========================================
+Processing the 0-th figure.
+[Iter 0] [top loss: 2284.881104]
+[Iter 50] [top loss: 847.528809]
+Reduced pixels from 116 to 64
+
+==========================================
+Processing the 1-th figure.
+[Iter 0] [top loss: 3257.218262]
+[Iter 50] [top loss: 1200.430542]
+Reduced pixels from 165 to 94
+
+==========================================
+Processing the 2-th figure.
+[Iter 0] [top loss: 1252.544189]
+[Iter 50] [top loss: 429.116364]
+Reduced pixels from 64 to 33
+
+==========================================
+Processing the 3-th figure.
+[Iter 0] [top loss: 3702.735352]
+[Iter 50] [top loss: 1241.177368]
+Reduced pixels from 193 to 106
+
+==========================================
+Processing the 4-th figure.
+[Iter 0] [top loss: 2363.359863]
+[Iter 50] [top loss: 828.170715]
+Reduced pixels from 120 to 65
+
+==========================================
+Processing the 5-th figure.
+[Iter 0] [top loss: 1609.023315]
+[Iter 50] [top loss: 591.127563]
+Reduced pixels from 82 to 47
+
+==========================================
+Processing the 6-th figure.
+[Iter 0] [top loss: 2663.017334]
+[Iter 50] [top loss: 1023.709534]
+Reduced pixels from 135 to 80
+
+==========================================
+Processing the 7-th figure.
+[Iter 0] [top loss: 2532.872803]
+[Iter 50] [top loss: 956.988281]
+Reduced pixels from 129 to 75
+
+==========================================
+Processing the 8-th figure.
+[Iter 0] [top loss: 3494.608887]
+[Iter 50] [top loss: 1298.391846]
+Reduced pixels from 174 to 100
+
+==========================================
+Processing the 9-th figure.
+[Iter 0] [top loss: 3462.155029]
+[Iter 50] [top loss: 1265.469727]
+Reduced pixels from 176 to 99
+
+==========================================
+Processing the 10-th figure.
+[Iter 0] [top loss: 2798.551514]
+[Iter 50] [top loss: 494.024963]
+Reduced pixels from 169 to 96
+
+==========================================
+Processing the 11-th figure.
+[Iter 0] [top loss: 3336.806885]
+[Iter 50] [top loss: 1126.556030]
+Reduced pixels from 172 to 101
+
+==========================================
+Processing the 12-th figure.
+[Iter 0] [top loss: 2666.141357]
+[Iter 50] [top loss: 939.423706]
+Reduced pixels from 136 to 73
+
+==========================================
+Processing the 13-th figure.
+[Iter 0] [top loss: 3003.626709]
+[Iter 50] [top loss: 789.252625]
+Reduced pixels from 168 to 101
+
+==========================================
+Processing the 14-th figure.
+[Iter 0] [top loss: 1470.058838]
+[Iter 50] [top loss: 506.167511]
+Reduced pixels from 75 to 40
+
+==========================================
+Processing the 15-th figure.
+[Iter 0] [top loss: 2665.039551]
+[Iter 50] [top loss: 918.664429]
+Reduced pixels from 137 to 85
+
+==========================================
+Processing the 16-th figure.
+[Iter 0] [top loss: 2812.262451]
+[Iter 50] [top loss: 922.893677]
+Reduced pixels from 148 to 88
+
+==========================================
+Processing the 17-th figure.
+[Iter 0] [top loss: 2641.567383]
+[Iter 50] [top loss: 990.052063]
+Reduced pixels from 134 to 81
+
+==========================================
+Processing the 18-th figure.
+[Iter 0] [top loss: 4046.066162]
+[Iter 50] [top loss: 1392.332153]
+Reduced pixels from 210 to 119
+
+==========================================
+Processing the 19-th figure.
+[Iter 0] [top loss: 2086.869629]
+[Iter 50] [top loss: 762.802368]
+Reduced pixels from 106 to 58
+
+==========================================
+Processing the 20-th figure.
+[Iter 0] [top loss: 3115.682617]
+[Iter 50] [top loss: 1089.878052]
+Reduced pixels from 158 to 90
+
+==========================================
+Processing the 21-th figure.
+[Iter 0] [top loss: 2529.824707]
+[Iter 50] [top loss: 874.660461]
+Reduced pixels from 130 to 72
+
+==========================================
+Processing the 22-th figure.
+[Iter 0] [top loss: 2734.869873]
+[Iter 50] [top loss: 1013.191528]
+Reduced pixels from 140 to 81
+
+==========================================
+Processing the 23-th figure.
+[Iter 0] [top loss: 2663.162842]
+[Iter 50] [top loss: 1001.039490]
+Reduced pixels from 135 to 75
+
+==========================================
+Processing the 24-th figure.
+[Iter 0] [top loss: 2035.339355]
+[Iter 50] [top loss: 681.795654]
+Reduced pixels from 104 to 57
+
+==========================================
+Processing the 25-th figure.
+[Iter 0] [top loss: 5224.361816]
+[Iter 50] [top loss: 1839.292358]
+Reduced pixels from 268 to 149
+
+==========================================
+Processing the 26-th figure.
+[Iter 0] [top loss: 1849.437500]
+[Iter 50] [top loss: 666.004517]
+Reduced pixels from 94 to 52
+
+==========================================
+Processing the 27-th figure.
+[Iter 0] [top loss: 2481.240479]
+[Iter 50] [top loss: 846.432617]
+Reduced pixels from 126 to 67
+
+==========================================
+Processing the 28-th figure.
+[Iter 0] [top loss: 3650.505127]
+[Iter 50] [top loss: 1176.559082]
+Reduced pixels from 196 to 102
+
+==========================================
+Processing the 29-th figure.
+[Iter 0] [top loss: 1331.094360]
+[Iter 50] [top loss: 447.320618]
+Reduced pixels from 68 to 33
+
+==========================================
+Processing the 30-th figure.
+[Iter 0] [top loss: 2681.026611]
+[Iter 50] [top loss: 1030.378174]
+Reduced pixels from 136 to 80
+
+==========================================
+Processing the 31-th figure.
+[Iter 0] [top loss: 1192.544189]
+[Iter 50] [top loss: 393.701935]
+Reduced pixels from 61 to 34
+
+==========================================
+Processing the 32-th figure.
+[Iter 0] [top loss: 2979.496338]
+[Iter 50] [top loss: 1076.999390]
+Reduced pixels from 151 to 84
+
+==========================================
+Processing the 33-th figure.
+[Iter 0] [top loss: 3197.046631]
+[Iter 50] [top loss: 1182.317261]
+Reduced pixels from 162 to 85
+
+==========================================
+Processing the 34-th figure.
+[Iter 0] [top loss: 2918.875000]
+[Iter 50] [top loss: 1049.225342]
+Reduced pixels from 148 to 83
+
+==========================================
+Processing the 35-th figure.
+[Iter 0] [top loss: 3528.305908]
+[Iter 50] [top loss: 1277.192383]
+Reduced pixels from 179 to 102
+
+==========================================
+Processing the 36-th figure.
+[Iter 0] [top loss: 2583.313477]
+[Iter 50] [top loss: 1003.009033]
+Reduced pixels from 131 to 75
+
+==========================================
+Processing the 37-th figure.
+[Iter 0] [top loss: 1588.401978]
+[Iter 50] [top loss: 575.985229]
+Reduced pixels from 81 to 42
+
+==========================================
+Processing the 38-th figure.
+[Iter 0] [top loss: 2524.709717]
+[Iter 50] [top loss: 953.183350]
+Reduced pixels from 128 to 72
+
+==========================================
+Processing the 39-th figure.
+[Iter 0] [top loss: 1964.674072]
+[Iter 50] [top loss: 713.225952]
+Reduced pixels from 100 to 55
+
+==========================================
+Processing the 40-th figure.
+[Iter 0] [top loss: 895.443665]
+[Iter 50] [top loss: 269.654083]
+Reduced pixels from 46 to 25
+
+==========================================
+Processing the 41-th figure.
+[Iter 0] [top loss: 2146.331055]
+[Iter 50] [top loss: 785.670471]
+Reduced pixels from 109 to 58
+
+==========================================
+Processing the 42-th figure.
+[Iter 0] [top loss: 2601.324951]
+[Iter 50] [top loss: 915.432861]
+Reduced pixels from 132 to 73
+
+==========================================
+Processing the 43-th figure.
+[Iter 0] [top loss: 1988.230469]
+[Iter 50] [top loss: 729.633728]
+Reduced pixels from 101 to 56
+
+==========================================
+Processing the 44-th figure.
+[Iter 0] [top loss: 2264.467041]
+[Iter 50] [top loss: 794.554565]
+Reduced pixels from 115 to 64
+
+==========================================
+Processing the 45-th figure.
+[Iter 0] [top loss: 2564.483154]
+[Iter 50] [top loss: 852.199219]
+Reduced pixels from 134 to 81
+
+==========================================
+Processing the 46-th figure.
+[Iter 0] [top loss: 2044.674072]
+[Iter 50] [top loss: 726.484253]
+Reduced pixels from 104 to 54
+
+==========================================
+Processing the 47-th figure.
+[Iter 0] [top loss: 2436.368652]
+[Iter 50] [top loss: 893.988037]
+Reduced pixels from 124 to 70
+
+==========================================
+Processing the 48-th figure.
+[Iter 0] [top loss: 3947.736084]
+[Iter 50] [top loss: 1372.445068]
+Reduced pixels from 200 to 107
+
+==========================================
+Processing the 49-th figure.
+[Iter 0] [top loss: 2701.059814]
+[Iter 50] [top loss: 961.811340]
+Reduced pixels from 137 to 72
+
+==========================================
+Processing the 50-th figure.
+[Iter 0] [top loss: 2443.618164]
+[Iter 50] [top loss: 875.536377]
+Reduced pixels from 125 to 75
+
+==========================================
+Processing the 51-th figure.
+[Iter 0] [top loss: 4002.035400]
+[Iter 50] [top loss: 1403.256714]
+Reduced pixels from 206 to 115
+
+==========================================
+Processing the 52-th figure.
+[Iter 0] [top loss: 3038.709961]
+[Iter 50] [top loss: 1139.460449]
+Reduced pixels from 154 to 86
+
+==========================================
+Processing the 53-th figure.
+[Iter 0] [top loss: 2458.210938]
+[Iter 50] [top loss: 801.676025]
+Reduced pixels from 128 to 70
+
+==========================================
+Processing the 54-th figure.
+[Iter 0] [top loss: 3818.556885]
+[Iter 50] [top loss: 1316.421509]
+Reduced pixels from 197 to 108
+
+==========================================
+Processing the 55-th figure.
+[Iter 0] [top loss: 2930.729736]
+[Iter 50] [top loss: 897.891357]
+Reduced pixels from 154 to 86
+
+==========================================
+Processing the 56-th figure.
+[Iter 0] [top loss: 3196.042725]
+[Iter 50] [top loss: 1113.570557]
+Reduced pixels from 162 to 88
+
+==========================================
+Processing the 57-th figure.
+[Iter 0] [top loss: 1173.165527]
+[Iter 50] [top loss: 394.352386]
+Reduced pixels from 60 to 29
+
+==========================================
+Processing the 58-th figure.
+[Iter 0] [top loss: 3035.576416]
+[Iter 50] [top loss: 1145.242920]
+Reduced pixels from 155 to 92
+
+==========================================
+Processing the 59-th figure.
+[Iter 0] [top loss: 1889.023315]
+[Iter 50] [top loss: 719.690308]
+Reduced pixels from 96 to 58
+
+==========================================
+Processing the 60-th figure.
+[Iter 0] [top loss: 2502.395996]
+[Iter 50] [top loss: 826.100037]
+Reduced pixels from 127 to 67
+
+==========================================
+Processing the 61-th figure.
+[Iter 0] [top loss: 3564.869141]
+[Iter 50] [top loss: 1293.694458]
+Reduced pixels from 183 to 105
+
+==========================================
+Processing the 62-th figure.
+[Iter 0] [top loss: 1912.130615]
+[Iter 50] [top loss: 618.265991]
+Reduced pixels from 98 to 55
+
+==========================================
+Processing the 63-th figure.
+[Iter 0] [top loss: 2695.225342]
+[Iter 50] [top loss: 937.934082]
+Reduced pixels from 137 to 74
+
+==========================================
+Processing the 64-th figure.
+[Iter 0] [top loss: 3693.182617]
+[Iter 50] [top loss: 1370.613403]
+Reduced pixels from 187 to 112
+
+==========================================
+Processing the 65-th figure.
+[Iter 0] [top loss: 1728.410522]
+[Iter 50] [top loss: 605.711426]
+Reduced pixels from 88 to 46
+
+==========================================
+Processing the 66-th figure.
+[Iter 0] [top loss: 2945.223877]
+[Iter 50] [top loss: 1079.147827]
+Reduced pixels from 150 to 89
+
+==========================================
+Processing the 67-th figure.
+[Iter 0] [top loss: 2860.289307]
+[Iter 50] [top loss: 1015.344482]
+Reduced pixels from 145 to 82
+
+==========================================
+Processing the 68-th figure.
+[Iter 0] [top loss: 3370.418701]
+[Iter 50] [top loss: 1230.015503]
+Reduced pixels from 171 to 91
+
+==========================================
+Processing the 69-th figure.
+[Iter 0] [top loss: 3071.968506]
+[Iter 50] [top loss: 853.776306]
+Reduced pixels from 173 to 95
+
+==========================================
+Processing the 70-th figure.
+[Iter 0] [top loss: 2622.188721]
+[Iter 50] [top loss: 977.247986]
+Reduced pixels from 133 to 80
+
+==========================================
+Processing the 71-th figure.
+[Iter 0] [top loss: 3902.677979]
+[Iter 50] [top loss: 1035.420776]
+Reduced pixels from 215 to 117
+
+==========================================
+Processing the 72-th figure.
+[Iter 0] [top loss: 3291.610840]
+[Iter 50] [top loss: 1179.584229]
+Reduced pixels from 167 to 96
+
+==========================================
+Processing the 73-th figure.
+[Iter 0] [top loss: 3015.096924]
+[Iter 50] [top loss: 1114.562378]
+Reduced pixels from 153 to 82
+
+==========================================
+Processing the 74-th figure.
+[Iter 0] [top loss: 1707.366455]
+[Iter 50] [top loss: 612.314880]
+Reduced pixels from 87 to 49
+
+==========================================
+Processing the 75-th figure.
+[Iter 0] [top loss: 2721.030273]
+[Iter 50] [top loss: 955.964172]
+Reduced pixels from 138 to 74
+
+==========================================
+Processing the 76-th figure.
+[Iter 0] [top loss: 2360.892334]
+[Iter 50] [top loss: 830.036804]
+Reduced pixels from 120 to 66
+
+==========================================
+Processing the 77-th figure.
+[Iter 0] [top loss: 2490.810059]
+[Iter 50] [top loss: 928.794922]
+Reduced pixels from 127 to 74
+
+==========================================
+Processing the 78-th figure.
+[Iter 0] [top loss: 2459.603027]
+[Iter 50] [top loss: 921.063171]
+Reduced pixels from 125 to 74
+
+==========================================
+Processing the 79-th figure.
+[Iter 0] [top loss: 3809.762451]
+[Iter 50] [top loss: 1383.313110]
+Reduced pixels from 193 to 108
+
+==========================================
+Processing the 80-th figure.
+[Iter 0] [top loss: 2204.318359]
+[Iter 50] [top loss: 769.778076]
+Reduced pixels from 112 to 59
+
+==========================================
+Processing the 81-th figure.
+[Iter 0] [top loss: 2976.576416]
+[Iter 50] [top loss: 1055.259644]
+Reduced pixels from 151 to 81
+
+==========================================
+Processing the 82-th figure.
+[Iter 0] [top loss: 3632.806641]
+[Iter 50] [top loss: 1304.155029]
+Reduced pixels from 184 to 101
+
+==========================================
+Processing the 83-th figure.
+[Iter 0] [top loss: 2086.952393]
+[Iter 50] [top loss: 799.383362]
+Reduced pixels from 106 to 56
+
+==========================================
+Processing the 84-th figure.
+[Iter 0] [top loss: 3595.883301]
+[Iter 50] [top loss: 1349.002075]
+Reduced pixels from 184 to 100
+
+==========================================
+Processing the 85-th figure.
+[Iter 0] [top loss: 3829.726807]
+[Iter 50] [top loss: 1374.976685]
+Reduced pixels from 194 to 103
+
+==========================================
+Processing the 86-th figure.
+[Iter 0] [top loss: 2798.460938]
+[Iter 50] [top loss: 990.922852]
+Reduced pixels from 142 to 80
+
+==========================================
+Processing the 87-th figure.
+[Iter 0] [top loss: 3217.385986]
+[Iter 50] [top loss: 1215.042114]
+Reduced pixels from 163 to 96
+
+==========================================
+Processing the 88-th figure.
+[Iter 0] [top loss: 3207.610596]
+[Iter 50] [top loss: 1152.719727]
+Reduced pixels from 163 to 91
+
+==========================================
+Processing the 89-th figure.
+[Iter 0] [top loss: 1826.745117]
+[Iter 50] [top loss: 625.616211]
+Reduced pixels from 93 to 51
+
+==========================================
+Processing the 90-th figure.
+[Iter 0] [top loss: 3064.660645]
+[Iter 50] [top loss: 1098.965210]
+Reduced pixels from 157 to 88
+
+==========================================
+Processing the 91-th figure.
+[Iter 0] [top loss: 2592.872070]
+[Iter 50] [top loss: 916.353638]
+Reduced pixels from 132 to 73
+
+==========================================
+Processing the 92-th figure.
+[Iter 0] [top loss: 2242.381592]
+[Iter 50] [top loss: 811.398132]
+Reduced pixels from 115 to 64
+
+==========================================
+Processing the 93-th figure.
+[Iter 0] [top loss: 3472.040527]
+[Iter 50] [top loss: 1280.125732]
+Reduced pixels from 176 to 99
+
+==========================================
+Processing the 94-th figure.
+[Iter 0] [top loss: 2182.603027]
+[Iter 50] [top loss: 784.147766]
+Reduced pixels from 111 to 58
+
+==========================================
+Processing the 95-th figure.
+[Iter 0] [top loss: 4257.691406]
+[Iter 50] [top loss: 1535.583496]
+Reduced pixels from 216 to 120
+
+==========================================
+Processing the 96-th figure.
+[Iter 0] [top loss: 1450.680176]
+[Iter 50] [top loss: 520.204041]
+Reduced pixels from 74 to 39
+
+==========================================
+Processing the 97-th figure.
+[Iter 0] [top loss: 3492.538818]
+[Iter 50] [top loss: 1186.891113]
+Reduced pixels from 177 to 93
+
+==========================================
+Processing the 98-th figure.
+[Iter 0] [top loss: 2858.077881]
+[Iter 50] [top loss: 1027.638306]
+Reduced pixels from 145 to 86
+
+==========================================
+Processing the 99-th figure.
+[Iter 0] [top loss: 3386.318848]
+[Iter 50] [top loss: 1201.012207]
+Reduced pixels from 174 to 99
+
+==========================================
+Processing the 100-th figure.
+[Iter 0] [top loss: 2770.799072]
+[Iter 50] [top loss: 956.731995]
+Reduced pixels from 143 to 78
+
+==========================================
+Processing the 101-th figure.
+[Iter 0] [top loss: 2892.339844]
+[Iter 50] [top loss: 615.196960]
+Reduced pixels from 169 to 95
+
+==========================================
+Processing the 102-th figure.
+[Iter 0] [top loss: 3454.789795]
+[Iter 50] [top loss: 1287.682861]
+Reduced pixels from 175 to 92
+
+==========================================
+Processing the 103-th figure.
+[Iter 0] [top loss: 2918.803955]
+[Iter 50] [top loss: 1030.597046]
+Reduced pixels from 148 to 79
+
+==========================================
+Processing the 104-th figure.
+[Iter 0] [top loss: 2601.025146]
+[Iter 50] [top loss: 904.520996]
+Reduced pixels from 133 to 72
+
+==========================================
+Processing the 105-th figure.
+[Iter 0] [top loss: 2431.871582]
+[Iter 50] [top loss: 746.930664]
+Reduced pixels from 127 to 73
+
+==========================================
+Processing the 106-th figure.
+[Iter 0] [top loss: 3875.812988]
+[Iter 50] [top loss: 1345.895386]
+Reduced pixels from 199 to 118
+
+==========================================
+Processing the 107-th figure.
+[Iter 0] [top loss: 1669.023315]
+[Iter 50] [top loss: 594.051514]
+Reduced pixels from 85 to 43
+
+==========================================
+Processing the 108-th figure.
+[Iter 0] [top loss: 2637.652100]
+[Iter 50] [top loss: 950.034058]
+Reduced pixels from 134 to 73
+
+==========================================
+Processing the 109-th figure.
+[Iter 0] [top loss: 2036.772339]
+[Iter 50] [top loss: 770.647034]
+Reduced pixels from 104 to 63
+
+==========================================
+Processing the 110-th figure.
+[Iter 0] [top loss: 3455.686768]
+[Iter 50] [top loss: 1246.449219]
+Reduced pixels from 176 to 97
+
+==========================================
+Processing the 111-th figure.
+[Iter 0] [top loss: 2144.467041]
+[Iter 50] [top loss: 748.924072]
+Reduced pixels from 109 to 62
+
+==========================================
+Processing the 112-th figure.
+[Iter 0] [top loss: 2106.745117]
+[Iter 50] [top loss: 812.421570]
+Reduced pixels from 107 to 63
+
+==========================================
+Processing the 113-th figure.
+[Iter 0] [top loss: 2638.860352]
+[Iter 50] [top loss: 936.334839]
+Reduced pixels from 135 to 76
+
+==========================================
+Processing the 114-th figure.
+[Iter 0] [top loss: 2085.875244]
+[Iter 50] [top loss: 840.458801]
+Reduced pixels from 106 to 62
+
+==========================================
+Processing the 115-th figure.
+[Iter 0] [top loss: 2180.645996]
+[Iter 50] [top loss: 811.348694]
+Reduced pixels from 111 to 65
+
+==========================================
+Processing the 116-th figure.
+[Iter 0] [top loss: 1729.437500]
+[Iter 50] [top loss: 603.458191]
+Reduced pixels from 88 to 47
+
+==========================================
+Processing the 117-th figure.
+[Iter 0] [top loss: 2899.082275]
+[Iter 50] [top loss: 1039.001221]
+Reduced pixels from 147 to 78
+
+==========================================
+Processing the 118-th figure.
+[Iter 0] [top loss: 2213.552734]
+[Iter 50] [top loss: 771.420776]
+Reduced pixels from 114 to 62
+
+==========================================
+Processing the 119-th figure.
+[Iter 0] [top loss: 3363.269043]
+[Iter 50] [top loss: 1237.836914]
+Reduced pixels from 171 to 94
+
+==========================================
+Processing the 120-th figure.
+[Iter 0] [top loss: 3987.911865]
+[Iter 50] [top loss: 1484.084839]
+Reduced pixels from 202 to 111
+
+==========================================
+Processing the 121-th figure.
+[Iter 0] [top loss: 2512.827881]
+[Iter 50] [top loss: 934.753662]
+Reduced pixels from 128 to 71
+
+==========================================
+Processing the 122-th figure.
+[Iter 0] [top loss: 1570.265991]
+[Iter 50] [top loss: 538.771484]
+Reduced pixels from 80 to 41
+
+==========================================
+Processing the 123-th figure.
+[Iter 0] [top loss: 3053.365234]
+[Iter 50] [top loss: 1121.780518]
+Reduced pixels from 155 to 87
+
+==========================================
+Processing the 124-th figure.
+[Iter 0] [top loss: 2878.875000]
+[Iter 50] [top loss: 1045.873291]
+Reduced pixels from 146 to 79
+
+==========================================
+Processing the 125-th figure.
+[Iter 0] [top loss: 2302.795410]
+[Iter 50] [top loss: 847.498535]
+Reduced pixels from 118 to 67
+
+==========================================
+Processing the 126-th figure.
+[Iter 0] [top loss: 3052.059082]
+[Iter 50] [top loss: 658.891785]
+Reduced pixels from 176 to 101
+
+==========================================
+Processing the 127-th figure.
+[Iter 0] [top loss: 3137.839600]
+[Iter 50] [top loss: 1161.207275]
+Reduced pixels from 159 to 85
+
+==========================================
+Processing the 128-th figure.
+[Iter 0] [top loss: 4018.848145]
+[Iter 50] [top loss: 1399.387085]
+Reduced pixels from 205 to 110
+
+==========================================
+Processing the 129-th figure.
+[Iter 0] [top loss: 2861.360352]
+[Iter 50] [top loss: 1008.077454]
+Reduced pixels from 145 to 81
+
+==========================================
+Processing the 130-th figure.
+[Iter 0] [top loss: 3571.465576]
+[Iter 50] [top loss: 1226.108398]
+Reduced pixels from 181 to 95
+
+==========================================
+Processing the 131-th figure.
+[Iter 0] [top loss: 4066.694336]
+[Iter 50] [top loss: 1444.219238]
+Reduced pixels from 206 to 114
+
+==========================================
+Processing the 132-th figure.
+[Iter 0] [top loss: 3450.674316]
+[Iter 50] [top loss: 1256.786743]
+Reduced pixels from 175 to 96
+
+==========================================
+Processing the 133-th figure.
+[Iter 0] [top loss: 3295.076172]
+[Iter 50] [top loss: 1260.127319]
+Reduced pixels from 167 to 92
+
+==========================================
+Processing the 134-th figure.
+[Iter 0] [top loss: 3192.763428]
+[Iter 50] [top loss: 1128.793701]
+Reduced pixels from 163 to 86
+
+==========================================
+Processing the 135-th figure.
+[Iter 0] [top loss: 1746.745117]
+[Iter 50] [top loss: 607.220947]
+Reduced pixels from 89 to 45
+
+==========================================
+Processing the 136-th figure.
+[Iter 0] [top loss: 2836.834961]
+[Iter 50] [top loss: 847.330444]
+Reduced pixels from 152 to 86
+
+==========================================
+Processing the 137-th figure.
+[Iter 0] [top loss: 2064.260010]
+[Iter 50] [top loss: 787.890259]
+Reduced pixels from 105 to 60
+
+==========================================
+Processing the 138-th figure.
+[Iter 0] [top loss: 3266.631836]
+[Iter 50] [top loss: 1226.701416]
+Reduced pixels from 166 to 99
+
+==========================================
+Processing the 139-th figure.
+[Iter 0] [top loss: 3063.588379]
+[Iter 50] [top loss: 1113.802246]
+Reduced pixels from 156 to 90
+
+==========================================
+Processing the 140-th figure.
+[Iter 0] [top loss: 2131.003662]
+[Iter 50] [top loss: 787.906250]
+Reduced pixels from 109 to 66
+
+==========================================
+Processing the 141-th figure.
+[Iter 0] [top loss: 2244.881104]
+[Iter 50] [top loss: 813.600403]
+Reduced pixels from 114 to 60
+
+==========================================
+Processing the 142-th figure.
+[Iter 0] [top loss: 2893.601807]
+[Iter 50] [top loss: 1100.287598]
+Reduced pixels from 147 to 92
+
+==========================================
+Processing the 143-th figure.
+[Iter 0] [top loss: 1370.680176]
+[Iter 50] [top loss: 460.738953]
+Reduced pixels from 70 to 36
+
+==========================================
+Processing the 144-th figure.
+[Iter 0] [top loss: 2622.405029]
+[Iter 50] [top loss: 954.142151]
+Reduced pixels from 133 to 75
+
+==========================================
+Processing the 145-th figure.
+[Iter 0] [top loss: 1232.130005]
+[Iter 50] [top loss: 427.380402]
+Reduced pixels from 63 to 32
+
+==========================================
+Processing the 146-th figure.
+[Iter 0] [top loss: 3615.465332]
+[Iter 50] [top loss: 1304.936768]
+Reduced pixels from 184 to 97
+
+==========================================
+Processing the 147-th figure.
+[Iter 0] [top loss: 4391.986328]
+[Iter 50] [top loss: 1510.644409]
+Reduced pixels from 225 to 125
+
+==========================================
+Processing the 148-th figure.
+[Iter 0] [top loss: 2771.947021]
+[Iter 50] [top loss: 760.592529]
+Reduced pixels from 150 to 86
+
+==========================================
+Processing the 149-th figure.
+[Iter 0] [top loss: 2516.332031]
+[Iter 50] [top loss: 997.997742]
+Reduced pixels from 128 to 80
+
+==========================================
+Processing the 150-th figure.
+[Iter 0] [top loss: 2820.406982]
+[Iter 50] [top loss: 935.921143]
+Reduced pixels from 147 to 86
+
+==========================================
+Processing the 151-th figure.
+[Iter 0] [top loss: 3485.385254]
+[Iter 50] [top loss: 1171.443481]
+Reduced pixels from 183 to 107
+
+==========================================
+Processing the 152-th figure.
+[Iter 0] [top loss: 2513.381104]
+[Iter 50] [top loss: 869.028442]
+Reduced pixels from 129 to 72
+
+==========================================
+Processing the 153-th figure.
+[Iter 0] [top loss: 2267.368652]
+[Iter 50] [top loss: 800.159485]
+Reduced pixels from 118 to 71
+
+==========================================
+Processing the 154-th figure.
+[Iter 0] [top loss: 1370.473145]
+[Iter 50] [top loss: 463.431519]
+Reduced pixels from 70 to 36
+
+==========================================
+Processing the 155-th figure.
+[Iter 0] [top loss: 3494.108154]
+[Iter 50] [top loss: 1297.703491]
+Reduced pixels from 177 to 98
+
+==========================================
+Processing the 156-th figure.
+[Iter 0] [top loss: 2580.481689]
+[Iter 50] [top loss: 910.297546]
+Reduced pixels from 131 to 71
+
+==========================================
+Processing the 157-th figure.
+[Iter 0] [top loss: 2402.846924]
+[Iter 50] [top loss: 627.256836]
+Reduced pixels from 133 to 79
+
+==========================================
+Processing the 158-th figure.
+[Iter 0] [top loss: 2780.531982]
+[Iter 50] [top loss: 1060.319824]
+Reduced pixels from 141 to 81
+
+==========================================
+Processing the 159-th figure.
+[Iter 0] [top loss: 2058.331055]
+[Iter 50] [top loss: 712.024109]
+Reduced pixels from 105 to 55
+
+==========================================
+Processing the 160-th figure.
+[Iter 0] [top loss: 2799.642090]
+[Iter 50] [top loss: 1009.192444]
+Reduced pixels from 142 to 75
+
+==========================================
+Processing the 161-th figure.
+[Iter 0] [top loss: 3149.234619]
+[Iter 50] [top loss: 1230.453247]
+Reduced pixels from 160 to 94
+
+==========================================
+Processing the 162-th figure.
+[Iter 0] [top loss: 3650.520508]
+[Iter 50] [top loss: 1369.953369]
+Reduced pixels from 185 to 99
+
+==========================================
+Processing the 163-th figure.
+[Iter 0] [top loss: 3215.975586]
+[Iter 50] [top loss: 1144.336304]
+Reduced pixels from 163 to 88
+
+==========================================
+Processing the 164-th figure.
+[Iter 0] [top loss: 2698.313232]
+[Iter 50] [top loss: 1005.044861]
+Reduced pixels from 137 to 74
+
+==========================================
+Processing the 165-th figure.
+[Iter 0] [top loss: 3475.240234]
+[Iter 50] [top loss: 1239.448608]
+Reduced pixels from 178 to 100
+
+==========================================
+Processing the 166-th figure.
+[Iter 0] [top loss: 2895.061523]
+[Iter 50] [top loss: 1019.143188]
+Reduced pixels from 147 to 79
+
+==========================================
+Processing the 167-th figure.
+[Iter 0] [top loss: 2461.416748]
+[Iter 50] [top loss: 957.924927]
+Reduced pixels from 125 to 69
+
+==========================================
+Processing the 168-th figure.
+[Iter 0] [top loss: 1707.366455]
+[Iter 50] [top loss: 590.250305]
+Reduced pixels from 87 to 49
+
+==========================================
+Processing the 169-th figure.
+[Iter 0] [top loss: 2324.061768]
+[Iter 50] [top loss: 842.112305]
+Reduced pixels from 118 to 65
+
+==========================================
+Processing the 170-th figure.
+[Iter 0] [top loss: 2105.677734]
+[Iter 50] [top loss: 788.455322]
+Reduced pixels from 107 to 61
+
+==========================================
+Processing the 171-th figure.
+[Iter 0] [top loss: 3472.247803]
+[Iter 50] [top loss: 1233.612061]
+Reduced pixels from 176 to 94
+
+==========================================
+Processing the 172-th figure.
+[Iter 0] [top loss: 3714.784180]
+[Iter 50] [top loss: 1423.870972]
+Reduced pixels from 188 to 106
+
+==========================================
+Processing the 173-th figure.
+[Iter 0] [top loss: 2765.351074]
+[Iter 50] [top loss: 810.570862]
+Reduced pixels from 148 to 84
+
+==========================================
+Processing the 174-th figure.
+[Iter 0] [top loss: 2738.460449]
+[Iter 50] [top loss: 974.558472]
+Reduced pixels from 139 to 76
+
+==========================================
+Processing the 175-th figure.
+[Iter 0] [top loss: 1253.372559]
+[Iter 50] [top loss: 435.718506]
+Reduced pixels from 64 to 34
+
+==========================================
+Processing the 176-th figure.
+[Iter 0] [top loss: 1093.165527]
+[Iter 50] [top loss: 377.872284]
+Reduced pixels from 56 to 31
+
+==========================================
+Processing the 177-th figure.
+[Iter 0] [top loss: 2945.195557]
+[Iter 50] [top loss: 1023.992188]
+Reduced pixels from 151 to 85
+
+==========================================
+Processing the 178-th figure.
+[Iter 0] [top loss: 1509.230469]
+[Iter 50] [top loss: 498.515411]
+Reduced pixels from 77 to 37
+
+==========================================
+Processing the 179-th figure.
+[Iter 0] [top loss: 3672.580078]
+[Iter 50] [top loss: 1358.922607]
+Reduced pixels from 187 to 101
+
+==========================================
+Processing the 180-th figure.
+[Iter 0] [top loss: 1271.715698]
+[Iter 50] [top loss: 411.312744]
+Reduced pixels from 65 to 34
+
+==========================================
+Processing the 181-th figure.
+[Iter 0] [top loss: 3463.385254]
+[Iter 50] [top loss: 1264.634644]
+Reduced pixels from 177 to 101
+
+==========================================
+Processing the 182-th figure.
+[Iter 0] [top loss: 2126.538086]
+[Iter 50] [top loss: 795.561890]
+Reduced pixels from 108 to 60
+
+==========================================
+Processing the 183-th figure.
+[Iter 0] [top loss: 2987.438232]
+[Iter 50] [top loss: 573.460632]
+Reduced pixels from 180 to 104
+
+==========================================
+Processing the 184-th figure.
+[Iter 0] [top loss: 3018.809814]
+[Iter 50] [top loss: 1028.197876]
+Reduced pixels from 154 to 83
+
+==========================================
+Processing the 185-th figure.
+[Iter 0] [top loss: 2718.411621]
+[Iter 50] [top loss: 1044.129395]
+Reduced pixels from 138 to 81
+
+==========================================
+Processing the 186-th figure.
+[Iter 0] [top loss: 3929.014404]
+[Iter 50] [top loss: 1445.331543]
+Reduced pixels from 199 to 108
+
+==========================================
+Processing the 187-th figure.
+[Iter 0] [top loss: 3210.164795]
+[Iter 50] [top loss: 1196.935669]
+Reduced pixels from 163 to 91
+
+==========================================
+Processing the 188-th figure.
+[Iter 0] [top loss: 3707.385986]
+[Iter 50] [top loss: 1136.589111]
+Reduced pixels from 198 to 113
+
+==========================================
+Processing the 189-th figure.
+[Iter 0] [top loss: 1152.958374]
+[Iter 50] [top loss: 407.993347]
+Reduced pixels from 59 to 31
+
+==========================================
+Processing the 190-th figure.
+[Iter 0] [top loss: 2202.810059]
+[Iter 50] [top loss: 745.982300]
+Reduced pixels from 112 to 60
+
+==========================================
+Processing the 191-th figure.
+[Iter 0] [top loss: 1470.473145]
+[Iter 50] [top loss: 513.306152]
+Reduced pixels from 75 to 38
+
+==========================================
+Processing the 192-th figure.
+[Iter 0] [top loss: 3483.866211]
+[Iter 50] [top loss: 1209.002686]
+Reduced pixels from 180 to 106
+
+==========================================
+Processing the 193-th figure.
+[Iter 0] [top loss: 2653.360352]
+[Iter 50] [top loss: 907.748901]
+Reduced pixels from 137 to 76
+
+==========================================
+Processing the 194-th figure.
+[Iter 0] [top loss: 3158.905273]
+[Iter 50] [top loss: 833.531494]
+Reduced pixels from 174 to 93
+
+==========================================
+Processing the 195-th figure.
+[Iter 0] [top loss: 1710.825806]
+[Iter 50] [top loss: 587.600586]
+Reduced pixels from 87 to 49
+
+==========================================
+Processing the 196-th figure.
+[Iter 0] [top loss: 1885.295410]
+[Iter 50] [top loss: 616.624756]
+Reduced pixels from 96 to 53
+
+==========================================
+Processing the 197-th figure.
+[Iter 0] [top loss: 2738.239014]
+[Iter 50] [top loss: 1015.314453]
+Reduced pixels from 139 to 79
+
+==========================================
+Processing the 198-th figure.
+[Iter 0] [top loss: 2355.369629]
+[Iter 50] [top loss: 845.259338]
+Reduced pixels from 120 to 71
+
+==========================================
+Processing the 199-th figure.
+[Iter 0] [top loss: 3888.519775]
+[Iter 50] [top loss: 1356.683105]
+Reduced pixels from 197 to 105
+
+HTD stoped at 21:07:53
