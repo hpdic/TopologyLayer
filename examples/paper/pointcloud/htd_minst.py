@@ -60,7 +60,7 @@ def train(args, model, device, train_loader, optimizer, epoch):
         #         break
 
 
-def test(model, device, test_loader):
+def test(model, device, test_loader, n_tot):
     model.eval()
     test_loss = 0
     correct = 0
@@ -72,11 +72,11 @@ def test(model, device, test_loader):
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
 
-    # test_loss /= len(test_loader.dataset)
-    #
-    # print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-    #     test_loss, correct, len(test_loader.dataset),
-    #     100. * correct / len(test_loader.dataset)))
+    test_loss /= n_tot
+
+    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        test_loss, correct, n_tot,
+        100. * correct / n_tot))
 
 
 def main():
@@ -143,7 +143,7 @@ def main():
     # print(len(train_loader_htd[0]))
     # exit(0)
 
-    # TODO: Limit the test data to 200
+    # Limit the test data to 200
     test_loader_htd = []
     nsamples = 2
     i = 0
@@ -154,10 +154,8 @@ def main():
         # print("i =", i)
         test_loader_htd.append((data, target))
         i = i + 1
-    print(test_loader_htd[0][1].shape)
-    print(len(test_loader_htd[0]))
-    exit(0)
-
+    # print(test_loader_htd[0][1].shape)
+    # print(len(test_loader_htd[0]))
 
     model = Net().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
@@ -169,7 +167,7 @@ def main():
         train(args, model, device, train_loader_htd, optimizer, epoch)
 
         print("Start testing.")
-        test(model, device, test_loader_htd)
+        test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
         scheduler.step()
 
     if args.save_model:
