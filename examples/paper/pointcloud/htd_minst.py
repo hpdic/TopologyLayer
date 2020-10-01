@@ -72,11 +72,11 @@ def test(model, device, test_loader):
             pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
             correct += pred.eq(target.view_as(pred)).sum().item()
 
-    test_loss /= len(test_loader.dataset)
-
-    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-        test_loss, correct, len(test_loader.dataset),
-        100. * correct / len(test_loader.dataset)))
+    # test_loss /= len(test_loader.dataset)
+    #
+    # print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+    #     test_loss, correct, len(test_loader.dataset),
+    #     100. * correct / len(test_loader.dataset)))
 
 
 def main():
@@ -144,14 +144,32 @@ def main():
     # exit(0)
 
     # TODO: Limit the test data to 200
+    test_loader_htd = []
+    nsamples = 2
+    i = 0
+    # for batch_idx, (data, target) in enumerate(train_loader):
+    for data, target in test_loader:
+        if i >= nsamples:
+            break
+        # print("i =", i)
+        test_loader_htd.append((data, target))
+        i = i + 1
+    print(test_loader_htd[0][1].shape)
+    print(len(test_loader_htd[0]))
+    exit(0)
+
 
     model = Net().to(device)
     optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
     for epoch in range(1, args.epochs + 1):
+
+        print("Start training.")
         train(args, model, device, train_loader_htd, optimizer, epoch)
-        test(model, device, test_loader)
+
+        print("Start testing.")
+        test(model, device, test_loader_htd)
         scheduler.step()
 
     if args.save_model:
