@@ -7,6 +7,11 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 from torch.optim.lr_scheduler import StepLR
 
+import os
+import pickle
+import numpy as np
+from torchvision.transforms import ToTensor
+from datetime import datetime
 
 class Net(nn.Module):
     def __init__(self):
@@ -33,11 +38,25 @@ class Net(nn.Module):
         output = F.log_softmax(x, dim=1)
         return output
 
+def train_htd(args, model, device, train_loader, optimizer, epoch):
+    model.train()
+    #what if we don't use batches for training?
+    for data_img, target in train_loader:
+        # print("data =", data)
+        data = ToTensor()(data_img).unsqueeze(0)
+        print("type(data) =", type(data))
+
+        data, target = data.to(device), target.to(device)
+        optimizer.zero_grad()
+        output = model(data)
+        loss = F.nll_loss(output, target)
+        loss.backward()
+        optimizer.step()
 
 def train(args, model, device, train_loader, optimizer, epoch):
     model.train()
     for batch_idx, (data, target) in enumerate(train_loader):
-        # print("data =", data)
+        # print("type(data) =", type(data))
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
         output = model(data)
@@ -59,6 +78,24 @@ def train(args, model, device, train_loader, optimizer, epoch):
         #     if args.dry_run:
         #         break
 
+def test_htd(model, device, test_loader, n_tot):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    with torch.no_grad():
+        for data_img, target in test_loader:
+            data = ToTensor()(data_img).unsqueeze(0)
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            test_loss += F.nll_loss(output, target, reduction='sum').item()  # sum up batch loss
+            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+            correct += pred.eq(target.view_as(pred)).sum().item()
+
+    test_loss /= n_tot
+
+    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+        test_loss, correct, n_tot,
+        100. * correct / n_tot))
 
 def test(model, device, test_loader, n_tot):
     model.eval()
@@ -173,6 +210,32 @@ def main():
     if args.save_model:
         torch.save(model.state_dict(), "mnist_cnn.pt")
 
+    # Directory for HTD data
+    htd_data_dir = './htd_data/'
+    if not os.path.exists(htd_data_dir):
+        os.mkdir(htd_data_dir)
+
+    # Load data from pickle
+    len_training = 1000
+    htd_trainset = htd_data_dir + 'htd_trainset.pkl'
+    training_data_htd = pickle.load(open(htd_trainset, 'rb'))
+    # print("type(loaded_data) =", type(loaded_data))
+    print("Loaded", len(training_data_htd), "HTD training figures.")
+    len_test = 200
+    htd_testset = htd_data_dir + 'htd_testset.pkl'
+    test_data_htd = pickle.load(open(htd_testset, 'rb'))
+    # print("type(loaded_data) =", type(loaded_data))
+    print("Loaded", len(test_data_htd), "HTD test figures.")
+
+    # HTD training
+    print("Start HTD training.")
+    epoch = 1 # just run once
+    # TODO: we need to convert the images into batches
+    # train_htd(args, model, device, training_data_htd, optimizer, epoch)
+    # test_htd(model, device, test_data_htd, len(test_data_htd))
+
+def img2batch():
+    pass
 
 if __name__ == '__main__':
     main()
