@@ -231,11 +231,19 @@ def main():
     print("Start HTD training.")
     epoch = 1 # just run once
     # TODO: we need to convert the images into batches
+    _testdata = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    _newdata = list2batch(_testdata, 3)
+    print(_newdata)
     # train_htd(args, model, device, training_data_htd, optimizer, epoch)
     # test_htd(model, device, test_data_htd, len(test_data_htd))
 
-def img2batch():
-    pass
+'''
+TODO: Convert a list into batches
+'''
+def list2batch(lst, bsize):
+    l = len(lst)
+    for ndx in range(0, l, bsize):
+        yield lst[ndx:min(ndx + bsize, l)]
 
 if __name__ == '__main__':
     main()
