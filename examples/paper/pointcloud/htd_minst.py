@@ -102,6 +102,15 @@ def test(model, device, test_loader, n_tot):
     test_loss = 0
     correct = 0
     with torch.no_grad():
+
+        print("\n Expected data structure:")
+        print(type(test_loader))
+        print(type(test_loader[0]))
+        print(type(test_loader[0][0]))
+        print(type(test_loader[0][1]))
+        print(test_loader[0][0].shape)
+        print(test_loader[0][1].shape)
+
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
             output = model(data)
@@ -231,19 +240,23 @@ def main():
     print("Start HTD training.")
     epoch = 1 # just run once
     # TODO: we need to convert the images into batches
-    _testdata = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    _newdata = list2batch(_testdata, 3)
-    print(_newdata)
-    # train_htd(args, model, device, training_data_htd, optimizer, epoch)
+    training_data_htd_batch = list2batch(training_data_htd, 100)
+    # train_htd(args, model, device, training_data_htd_batch, optimizer, epoch)
     # test_htd(model, device, test_data_htd, len(test_data_htd))
 
 '''
 TODO: Convert a list into batches
 '''
 def list2batch(lst, bsize):
-    l = len(lst)
-    for ndx in range(0, l, bsize):
-        yield lst[ndx:min(ndx + bsize, l)]
+    print("\n Input data structure:")
+    print(type(lst))
+    print(type(lst[0]))
+    print(type(lst[0][0]))
+    print(type(lst[0][1]))
+    # pass
+    # l = len(lst)
+    # for ndx in range(0, l, bsize):
+    #     yield lst[ndx:min(ndx + bsize, l)]
 
 if __name__ == '__main__':
     main()
