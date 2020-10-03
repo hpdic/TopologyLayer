@@ -59,6 +59,8 @@ def train(args, model, device, train_loader, optimizer, epoch):
         # print("type(data) =", type(data))
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
+        # print("data =", data)
+        # print("type(data) =", type(data))
         output = model(data)
         loss = F.nll_loss(output, target)
         loss.backward()
@@ -103,13 +105,13 @@ def test(model, device, test_loader, n_tot):
     correct = 0
     with torch.no_grad():
 
-        print("\n Expected data structure:")
-        print("type(test_loader) =", type(test_loader))
-        print("type(test_loader[0]) =", type(test_loader[0]))
-        print("type(test_loader[0][0]) =", type(test_loader[0][0]))
-        print("type(test_loader[0][1]) =", type(test_loader[0][1]))
-        print("test_loader[0][0].shape =", test_loader[0][0].shape)
-        print("test_loader[0][1].shape =", test_loader[0][1].shape)
+        # print("\n Expected data structure:")
+        # print("type(test_loader) =", type(test_loader))
+        # print("type(test_loader[0]) =", type(test_loader[0]))
+        # print("type(test_loader[0][0]) =", type(test_loader[0][0]))
+        # print("type(test_loader[0][1]) =", type(test_loader[0][1]))
+        # print("test_loader[0][0].shape =", test_loader[0][0].shape)
+        # print("test_loader[0][1].shape =", test_loader[0][1].shape)
 
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
@@ -120,7 +122,7 @@ def test(model, device, test_loader, n_tot):
 
     test_loss /= n_tot
 
-    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+    print('\nTest result: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
         test_loss, correct, n_tot,
         100. * correct / n_tot))
 
@@ -239,29 +241,48 @@ def main():
     # HTD training
     print("Start HTD training.")
     epoch = 1 # just run once
-    # TODO: we need to convert the images into batches
+
     training_data_htd_batch = list2batch(training_data_htd, 100)
-    # train_htd(args, model, device, training_data_htd_batch, optimizer, epoch)
-    # test_htd(model, device, test_data_htd, len(test_data_htd))
+    train(args, model, device, training_data_htd_batch, optimizer, epoch)
+
+    print("Start HTD testing.")
+    test_data_htd_batch = list2batch(test_data_htd, 100)
+    test(model, device, test_data_htd_batch, len(test_data_htd))
 
 '''
-TODO: Convert a list into batches
+Convert a list ((image, label)) into batches
 '''
 def list2batch(lst, bsize):
-    print("\n Input data structure:")
-    print(type(lst))
-    print(type(lst[0]))
-    print(type(lst[0][0]))
-    print(type(lst[0][1]))
+    # print("\n Input data structure:")
+    # print(type(lst))
+    # print(type(lst[0]))
+    # print(type(lst[0][0]))
+    # print(type(lst[0][1]))
 
     idx = 0
+    res = [] # result
+    img_ary = np.zeros([bsize,1,28,28])
+    label_ary = np.zeros([bsize], dtype=int)
     for img, label in lst:
-        # TODO
-
+        img_ary[idx % bsize][0] = np.array(img)
+        label_ary[idx % bsize] = label
         idx = idx + 1
         if not (idx % bsize):
             #done with one batch
-            pass
+            img_tensor = torch.from_numpy(img_ary).float()
+            label_tensor = torch.from_numpy(label_ary)
+            res.append((img_tensor, label_tensor))
+            img_ary = np.zeros([bsize, 1, 28, 28])
+            label_ary = np.zeros([bsize], dtype=int)
+
+    # print(type(res))
+    # print(type(res[0]))
+    # print(type(res[0][0]))
+    # print(type(res[0][1]))
+    # print(res[0][0].shape)
+    # print(res[0][1].shape)
+    #
+    return res
     # pass
     # l = len(lst)
     # for ndx in range(0, l, bsize):
