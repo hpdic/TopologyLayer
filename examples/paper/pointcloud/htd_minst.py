@@ -104,12 +104,12 @@ def test(model, device, test_loader, n_tot):
     with torch.no_grad():
 
         print("\n Expected data structure:")
-        print(type(test_loader))
-        print(type(test_loader[0]))
-        print(type(test_loader[0][0]))
-        print(type(test_loader[0][1]))
-        print(test_loader[0][0].shape)
-        print(test_loader[0][1].shape)
+        print("type(test_loader) =", type(test_loader))
+        print("type(test_loader[0]) =", type(test_loader[0]))
+        print("type(test_loader[0][0]) =", type(test_loader[0][0]))
+        print("type(test_loader[0][1]) =", type(test_loader[0][1]))
+        print("test_loader[0][0].shape =", test_loader[0][0].shape)
+        print("test_loader[0][1].shape =", test_loader[0][1].shape)
 
         for data, target in test_loader:
             data, target = data.to(device), target.to(device)
@@ -253,6 +253,15 @@ def list2batch(lst, bsize):
     print(type(lst[0]))
     print(type(lst[0][0]))
     print(type(lst[0][1]))
+
+    idx = 0
+    for img, label in lst:
+        # TODO
+
+        idx = idx + 1
+        if not (idx % bsize):
+            #done with one batch
+            pass
     # pass
     # l = len(lst)
     # for ndx in range(0, l, bsize):
