@@ -167,8 +167,6 @@ htd_testset = htd_data_dir + 'htd_testset.pkl'
 file = open(htd_testset, 'wb')
 pickle.dump(testset_htd, file)
 
-exit(0)
-
 # HTD training set
 len = len(mnist_trainset)
 len = 1000
