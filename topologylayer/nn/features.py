@@ -107,6 +107,7 @@ class BarcodePolyFeature(nn.Module):
             dgm = remove_zero_bars(dgm)
         lengths, means = get_barcode_lengths_means(dgm, issublevel)
 
+        #DFZ: this is the place where to update the equation in the paper
         return torch.sum(torch.mul(torch.pow(lengths, self.p), torch.pow(means, self.q)))
 
 
