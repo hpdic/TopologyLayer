@@ -98,17 +98,19 @@ def topo_reduce(input, steps=100):
     optimizer = torch.optim.Adam([x], lr=lr)
     layer = AlphaLayer(maxdim=1)
     f2 = BarcodePolyFeature(0, 2, 0)
-    f3 = BarcodePolyFeature(1, 2, 1)
-    f4 = BarcodePolyFeature(0, 2, 0)
+    f3 = BarcodePolyFeature(1, 2, 1) # 1-dim
+    f4 = BarcodePolyFeature(0, 2, 0) # 0-dim
     for i in range(steps):
         optimizer.zero_grad()
-        dgminfo = layer(x)
+
+        dgminfo = layer(x) #but does layer(x) change over the iterations?
         # print("Increase H1, decrease H0")
         # loss = -f3(dgminfo) + f4(dgminfo)
         loss = -f3(dgminfo) * 1 + f4(dgminfo) * 20
         loss.backward()
+
         optimizer.step()
-        # print(type(loss.item()))
+
         if loss.item() <= 5.0:  # should have some eplison to avoid overfitting
             break
         if (i % 50 == 0):
