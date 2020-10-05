@@ -20,6 +20,9 @@ import torchvision
 import torchvision.datasets as datasets
 from PIL import Image
 
+# TODO: try other datasets such as
+#  ImageNet: https://pytorch.org/docs/stable/torchvision/datasets.html#imagenet
+#  CelebA: https://pytorch.org/docs/stable/torchvision/datasets.html#celeba
 mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
 mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
 
