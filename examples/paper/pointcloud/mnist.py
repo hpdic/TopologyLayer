@@ -77,7 +77,7 @@ def main():
                         help='input batch size for training (default: 64)')
     parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
                         help='input batch size for testing (default: 1000)')
-    parser.add_argument('--epochs', type=int, default=14, metavar='N',
+    parser.add_argument('--epochs', type=int, default=1, metavar='N',
                         help='number of epochs to train (default: 14)')
     parser.add_argument('--lr', type=float, default=1.0, metavar='LR',
                         help='learning rate (default: 1.0)')
@@ -111,10 +111,25 @@ def main():
         transforms.ToTensor(),
         transforms.Normalize((0.1307,), (0.3081,))
         ])
-    dataset1 = datasets.MNIST('../data', train=True, download=True,
+
+    # # DFZ: For vanilla MNIST
+    # dataset1 = datasets.MNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.MNIST('../data', train=False,
+    #                    transform=transform)
+
+    # # DFZ: Fashion data, exactly the same format as MNIST but for clothes
+    # dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.FashionMNIST('../data', train=False,
+    #                    transform=transform)
+
+    # DFZ: Japanese Character data, exactly the same format as MNIST
+    dataset1 = datasets.KMNIST('../data', train=True, download=True,
                        transform=transform)
-    dataset2 = datasets.MNIST('../data', train=False,
+    dataset2 = datasets.KMNIST('../data', train=False,
                        transform=transform)
+
     train_loader = torch.utils.data.DataLoader(dataset1,**kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **kwargs)
 
@@ -127,8 +142,8 @@ def main():
         test(model, device, test_loader)
         scheduler.step()
 
-    if args.save_model:
-        torch.save(model.state_dict(), "mnist_cnn.pt")
+    # if args.save_model:
+    #     torch.save(model.state_dict(), "mnist_cnn.pt")
 
 
 if __name__ == '__main__':
