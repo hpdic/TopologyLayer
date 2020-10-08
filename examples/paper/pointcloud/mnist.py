@@ -112,23 +112,26 @@ def main():
         transforms.Normalize((0.1307,), (0.3081,))
         ])
 
+
+    # DFZ: More datasets: https://pytorch.org/docs/stable/torchvision/datasets.html
+
     # # DFZ: For vanilla MNIST
     # dataset1 = datasets.MNIST('../data', train=True, download=True,
     #                    transform=transform)
     # dataset2 = datasets.MNIST('../data', train=False,
     #                    transform=transform)
 
-    # # DFZ: Fashion data, exactly the same format as MNIST but for clothes
-    # dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
-    #                    transform=transform)
-    # dataset2 = datasets.FashionMNIST('../data', train=False,
-    #                    transform=transform)
+    # DFZ: Fashion data, exactly the same format as MNIST but for clothes
+    dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.FashionMNIST('../data', train=False,
+                       transform=transform)
 
-    # DFZ: Japanese Character data, exactly the same format as MNIST
-    dataset1 = datasets.KMNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.KMNIST('../data', train=False,
-                       transform=transform)
+    # # DFZ: Japanese Character data, exactly the same format as MNIST
+    # dataset1 = datasets.KMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.KMNIST('../data', train=False,
+    #                    transform=transform)
 
     train_loader = torch.utils.data.DataLoader(dataset1,**kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **kwargs)

@@ -25,12 +25,12 @@ from PIL import Image
 # mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
 # mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
 
-# DFZ: KMNIST -- Japanese Character data, exactly the same format as MNIST
-datasetname = "KMNIST"
-mnist_trainset = datasets.KMNIST('./data', train=True, download=True,
-                           transform=None)
-mnist_testset = datasets.KMNIST('./data', train=False,
-                           transform=None)
+# # DFZ: KMNIST -- Japanese Character data, exactly the same format as MNIST
+# datasetname = "KMNIST"
+# mnist_trainset = datasets.KMNIST('./data', train=True, download=True,
+#                            transform=None)
+# mnist_testset = datasets.KMNIST('./data', train=False,
+#                            transform=None)
 
 # DFZ: FashionMNIST -- Fashion Clothes in the format of MNIST
 datasetname = "FashionMNIST"
