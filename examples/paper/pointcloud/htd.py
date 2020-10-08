@@ -31,6 +31,14 @@ mnist_trainset = datasets.KMNIST('./data', train=True, download=True,
                            transform=None)
 mnist_testset = datasets.KMNIST('./data', train=False,
                            transform=None)
+
+# DFZ: FashionMNIST -- Fashion Clothes in the format of MNIST
+datasetname = "FashionMNIST"
+mnist_trainset = datasets.FashionMNIST('./data', train=True, download=True,
+                           transform=None)
+mnist_testset = datasets.FashionMNIST('./data', train=False,
+                           transform=None)
+
 # index = 3000
 # x, y = mnist_trainset[index]
 # x.show()
