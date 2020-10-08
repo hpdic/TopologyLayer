@@ -169,10 +169,16 @@ def main():
         transforms.Normalize((0.1307,), (0.3081,))
         ])
 
-    # TODO: update the sets to ImageNet and CelebA
-    dataset1 = datasets.MNIST('../data', train=True, download=True,
+    # dataset1 = datasets.MNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.MNIST('../data', train=False,
+    #                    transform=transform)
+
+    # DFZ: for KMNIST
+    datasetname = "KMNIST"
+    dataset1 = datasets.KMNIST('../data', train=True, download=True,
                        transform=transform)
-    dataset2 = datasets.MNIST('../data', train=False,
+    dataset2 = datasets.KMNIST('../data', train=False,
                        transform=transform)
 
     train_loader = torch.utils.data.DataLoader(dataset1, **kwargs)
@@ -213,41 +219,41 @@ def main():
     scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
     for epoch in range(1, args.epochs + 1):
 
-        print("Start training.")
+        print("Start PyTorch training for", datasetname)
         train(args, model, device, train_loader_htd, optimizer, epoch)
 
-        print("Start testing.")
+        print("Start PyTorch testing for", datasetname)
         test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
         scheduler.step()
 
-    if args.save_model:
-        torch.save(model.state_dict(), "mnist_cnn.pt")
+    # if args.save_model:
+    #     torch.save(model.state_dict(), "mnist_cnn.pt")
 
     # Directory for HTD data
     htd_data_dir = './htd_data/'
-    if not os.path.exists(htd_data_dir):
-        os.mkdir(htd_data_dir)
+    # if not os.path.exists(htd_data_dir):
+    #     os.mkdir(htd_data_dir)
 
     # Load data from pickle
     len_training = 1000
-    htd_trainset = htd_data_dir + 'htd_trainset.pkl'
+    htd_trainset = htd_data_dir + datasetname + '_htd_trainset.pkl'
     training_data_htd = pickle.load(open(htd_trainset, 'rb'))
     # print("type(loaded_data) =", type(loaded_data))
     print("Loaded", len(training_data_htd), "HTD training figures.")
     len_test = 200
-    htd_testset = htd_data_dir + 'htd_testset.pkl'
+    htd_testset = htd_data_dir + datasetname + '_htd_testset.pkl'
     test_data_htd = pickle.load(open(htd_testset, 'rb'))
     # print("type(loaded_data) =", type(loaded_data))
     print("Loaded", len(test_data_htd), "HTD test figures.")
 
     # HTD training
-    print("Start HTD training.")
+    print("Start HTD training for", datasetname)
     epoch = 1 # just run once
 
     training_data_htd_batch = list2batch(training_data_htd, 100)
     train(args, model, device, training_data_htd_batch, optimizer, epoch)
 
-    print("Start HTD testing.")
+    print("Start HTD testing for", datasetname)
     test_data_htd_batch = list2batch(test_data_htd, 100)
     test(model, device, test_data_htd_batch, len(test_data_htd))
 
