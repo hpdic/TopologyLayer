@@ -174,11 +174,18 @@ def main():
     # dataset2 = datasets.MNIST('../data', train=False,
     #                    transform=transform)
 
-    # DFZ: for KMNIST
-    datasetname = "KMNIST"
-    dataset1 = datasets.KMNIST('../data', train=True, download=True,
+    # # DFZ: for KMNIST
+    # datasetname = "KMNIST"
+    # dataset1 = datasets.KMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.KMNIST('../data', train=False,
+    #                    transform=transform)
+
+    # DFZ: for FashionMNIST
+    datasetname = "FashionMNIST"
+    dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
                        transform=transform)
-    dataset2 = datasets.KMNIST('../data', train=False,
+    dataset2 = datasets.FashionMNIST('../data', train=False,
                        transform=transform)
 
     train_loader = torch.utils.data.DataLoader(dataset1, **kwargs)
