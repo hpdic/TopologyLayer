@@ -20,10 +20,14 @@ import torchvision
 import torchvision.datasets as datasets
 from PIL import Image
 
+# 1000 and 200 for initial experiments
+len_training = 1
+len_test = 1
+
 # DFZ: MNIST
-# datasetname = "MNIST"
-# mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
-# mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
+datasetname = "MNIST"
+mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
+mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
 
 # # DFZ: KMNIST -- Japanese Character data, exactly the same format as MNIST
 # datasetname = "KMNIST"
@@ -32,12 +36,12 @@ from PIL import Image
 # mnist_testset = datasets.KMNIST('./data', train=False,
 #                            transform=None)
 
-# DFZ: FashionMNIST -- Fashion Clothes in the format of MNIST
-datasetname = "FashionMNIST"
-mnist_trainset = datasets.FashionMNIST('./data', train=True, download=True,
-                           transform=None)
-mnist_testset = datasets.FashionMNIST('./data', train=False,
-                           transform=None)
+# # DFZ: FashionMNIST -- Fashion Clothes in the format of MNIST
+# datasetname = "FashionMNIST"
+# mnist_trainset = datasets.FashionMNIST('./data', train=True, download=True,
+#                            transform=None)
+# mnist_testset = datasets.FashionMNIST('./data', train=False,
+#                            transform=None)
 
 # index = 3000
 # x, y = mnist_trainset[index]
@@ -144,35 +148,39 @@ if not os.path.exists(htd_data_dir):
 
 # HTD test set
 # l = len(mnist_testset)
-l = 200
 testset_htd = []
 print("HTD test set started at", datetime.now().strftime("%H:%M:%S"))
-for i in range(l):
+for i in range(len_test):
     print("\n==========================================")
     print("Processing the " + str(i) + "-th figure.")
     x_i, y_i = mnist_testset[i]
     # print("type(x_i) =", type(x_i))
 
-    # # Show the original figure
-    # data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
-    # data = np.asarray(np.nonzero(data_greylevel)).T
-    # fig = plt.figure(figsize=(5, 5))
-    # plt.scatter(data[:, 0], data[:, 1])
-    # plt.axis('equal')
-    # plt.axis('off')
-    # plt.savefig(figfolder + 'origin_' + str(i) + '.png')
-    # plt.close(fig)
+    # Show the original figure
+    data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
+    data = np.asarray(np.nonzero(data_greylevel)).T
+    fig = plt.figure(figsize=(5, 5))
+    plt.scatter(data[:, 0], data[:, 1])
+    plt.axis('equal')
+    plt.axis('off')
+    plt.savefig(figfolder + 'origin_' + str(i) + '.png')
+    plt.close(fig)
 
     x_i_2d = np.asarray(np.nonzero(x_i)).T
     x_i_2d_htd = topo_reduce(x_i_2d).detach().numpy().astype(int)
     x_i_htd = np.zeros((28, 28))
     x_i_htd[tuple(x_i_2d_htd.T)] = 1
 
-    # # Show the denoised figure
+    # Show the denoised figure
     # fig = plt.figure(i)
     # plt.imshow(x_i_htd)
-    # plt.savefig(figfolder + "htd_" + str(i) + ".png")
-    # plt.close(fig)
+    x_i_2d_htd_up = np.asarray(np.nonzero(np.rot90(np.rot90(np.rot90(x_i_htd))))).T
+    fig = plt.figure(figsize=(5, 5))
+    plt.scatter(x_i_2d_htd_up[:, 0], x_i_2d_htd_up[:, 1])
+    plt.axis('equal')
+    plt.axis('off')
+    plt.savefig(figfolder + "htd_" + str(i) + ".png")
+    plt.close(fig)
 
     print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
 
@@ -181,16 +189,15 @@ for i in range(l):
     # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
     testset_htd.append((new_im, y_i))
 print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
-htd_testset = htd_data_dir + datasetname + '_htd_testset.pkl'
+htd_testset = htd_data_dir + datasetname + '_' + str(len_test) + '_htd_testset.pkl'
 file = open(htd_testset, 'wb')
 pickle.dump(testset_htd, file)
 
 # HTD training set
 # len = len(mnist_trainset)
-l = 1000
 trainset_htd = []
 print("HTD training set started at", datetime.now().strftime("%H:%M:%S"))
-for i in range(l):
+for i in range(len_training):
     print("\n==========================================")
     print("Processing the " + str(i) + "-th figure.")
     x_i, y_i = mnist_trainset[i]
@@ -226,7 +233,7 @@ for i in range(l):
 print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
 
 # Save htd data into pickle files
-htd_trainset = htd_data_dir + datasetname + '_htd_trainset.pkl'
+htd_trainset = htd_data_dir + datasetname + '_' + str(len_training) + '_htd_trainset.pkl'
 file = open(htd_trainset, 'wb')
 pickle.dump(trainset_htd, file)
 
