@@ -11,8 +11,12 @@
 ## conda install torchvision -c pytorch
 ## cd [installation_path]
 ## python setup.py install
-## cd examples/paper/pointcloud
-## python htd.py
+## To run
+### cd examples/paper/pointcloud
+### To run original data: python mnist.py
+### To denoise data: python htd.py
+### To run denoised data: python htd_minst.py (it will automatically run the vanilla case as well)
+
 
 
 # TopologyLayer
