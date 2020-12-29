@@ -169,24 +169,26 @@ def main():
         transforms.Normalize((0.1307,), (0.3081,))
         ])
 
-    # dataset1 = datasets.MNIST('../data', train=True, download=True,
-    #                    transform=transform)
-    # dataset2 = datasets.MNIST('../data', train=False,
-    #                    transform=transform)
+    ## DFZ: for MNIST (70% -> 78%)
+    datasetname = "MNIST"
+    dataset1 = datasets.MNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.MNIST('../data', train=False,
+                       transform=transform)
 
-    # # DFZ: for KMNIST
+    ## DFZ: for KMNIST (34% -> 47%)
     # datasetname = "KMNIST"
     # dataset1 = datasets.KMNIST('../data', train=True, download=True,
     #                    transform=transform)
     # dataset2 = datasets.KMNIST('../data', train=False,
     #                    transform=transform)
 
-    # DFZ: for FashionMNIST
-    datasetname = "FashionMNIST"
-    dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.FashionMNIST('../data', train=False,
-                       transform=transform)
+    ## DFZ: for FashionMNIST (63% -> 58%)
+    # datasetname = "FashionMNIST"
+    # dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.FashionMNIST('../data', train=False,
+    #                    transform=transform)
 
     train_loader = torch.utils.data.DataLoader(dataset1, **kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **kwargs)
