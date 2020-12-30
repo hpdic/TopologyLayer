@@ -2,6 +2,13 @@
 # For denoising, we want to decrease H0 and promote the largest H1 
 #   htd: High-order Topological Denoising
 #
+#   TODO: we need a script to loop over the following parameters:
+#       - g_dim1wt: weight put on the 1-dimensional loss
+#       - g_dim0wt: weight put on the 0-dimensional loss
+#       - len_training: number of data for training
+#       - len_test: number of data for test
+#       - show_fig=False: don't show the figures by default
+#
 
 from __future__ import print_function
 from topologylayer.nn import AlphaLayer
@@ -20,14 +27,16 @@ import torchvision
 import torchvision.datasets as datasets
 from PIL import Image
 
+show_fig = False
+
 # 1000 and 200 for initial experiments
-len_training = 1
-len_test = 1
+len_training = 1    # 1 for trivial test; should be updated to a larger number
+len_test = 1        # 1 for trivial test; should be updated to a larger number
 
 # DFZ: MNIST
-datasetname = "MNIST"
-mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
-mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
+# datasetname = "MNIST"
+# mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
+# mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
 
 # # DFZ: KMNIST -- Japanese Character data, exactly the same format as MNIST
 # datasetname = "KMNIST"
@@ -37,17 +46,19 @@ mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transf
 #                            transform=None)
 
 # # DFZ: FashionMNIST -- Fashion Clothes in the format of MNIST
-# datasetname = "FashionMNIST"
-# mnist_trainset = datasets.FashionMNIST('./data', train=True, download=True,
-#                            transform=None)
-# mnist_testset = datasets.FashionMNIST('./data', train=False,
-#                            transform=None)
+datasetname = "FashionMNIST"
+mnist_trainset = datasets.FashionMNIST('./data', train=True, download=True,
+                           transform=None)
+mnist_testset = datasets.FashionMNIST('./data', train=False,
+                           transform=None)
 
+############################
+##### The following shows a specific (x,y) data pair from the data set
+############################
 # index = 3000
 # x, y = mnist_trainset[index]
 # x.show()
 # print(type(x))
-
 # print(type(y))
 # print("y =", y)
 # print(len(mnist_testset))
@@ -112,12 +123,14 @@ if not os.path.exists(figfolder):
 '''
 Preprocess the image with topological denoising
 '''
+g_dim1wt = 1
+g_dim0wt = 20
 def topo_reduce(input, steps=100):
     x = torch.autograd.Variable(torch.tensor(input).type(torch.float), requires_grad=True)
     lr = 1e-2
     optimizer = torch.optim.Adam([x], lr=lr)
     layer = AlphaLayer(maxdim=1)
-    f2 = BarcodePolyFeature(0, 2, 0)
+    f2 = BarcodePolyFeature(0, 2, 0) # any usefulness?
     f3 = BarcodePolyFeature(1, 2, 1) # 1-dim
     f4 = BarcodePolyFeature(0, 2, 0) # 0-dim
     for i in range(steps):
@@ -126,7 +139,7 @@ def topo_reduce(input, steps=100):
         dgminfo = layer(x) #but does layer(x) change over the iterations?
         # print("Increase H1, decrease H0")
         # loss = -f3(dgminfo) + f4(dgminfo)
-        loss = -f3(dgminfo) * 1 + f4(dgminfo) * 20
+        loss = -f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt
         loss.backward()
 
         optimizer.step()
@@ -157,14 +170,15 @@ for i in range(len_test):
     # print("type(x_i) =", type(x_i))
 
     # Show the original figure
-    data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
-    data = np.asarray(np.nonzero(data_greylevel)).T
-    fig = plt.figure(figsize=(5, 5))
-    plt.scatter(data[:, 0], data[:, 1])
-    plt.axis('equal')
-    plt.axis('off')
-    plt.savefig(figfolder + 'origin_' + str(i) + '.png')
-    plt.close(fig)
+    if show_fig:
+        data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
+        data = np.asarray(np.nonzero(data_greylevel)).T
+        fig = plt.figure(figsize=(5, 5))
+        plt.scatter(data[:, 0], data[:, 1])
+        plt.axis('equal')
+        plt.axis('off')
+        plt.savefig(figfolder + 'origin_test_' + str(i) + '.png')
+        plt.close(fig)
 
     x_i_2d = np.asarray(np.nonzero(x_i)).T
     x_i_2d_htd = topo_reduce(x_i_2d).detach().numpy().astype(int)
@@ -174,13 +188,14 @@ for i in range(len_test):
     # Show the denoised figure
     # fig = plt.figure(i)
     # plt.imshow(x_i_htd)
-    x_i_2d_htd_up = np.asarray(np.nonzero(np.rot90(np.rot90(np.rot90(x_i_htd))))).T
-    fig = plt.figure(figsize=(5, 5))
-    plt.scatter(x_i_2d_htd_up[:, 0], x_i_2d_htd_up[:, 1])
-    plt.axis('equal')
-    plt.axis('off')
-    plt.savefig(figfolder + "htd_" + str(i) + ".png")
-    plt.close(fig)
+    if show_fig:
+        x_i_2d_htd_up = np.asarray(np.nonzero(np.rot90(np.rot90(np.rot90(x_i_htd))))).T
+        fig = plt.figure(figsize=(5, 5))
+        plt.scatter(x_i_2d_htd_up[:, 0], x_i_2d_htd_up[:, 1])
+        plt.axis('equal')
+        plt.axis('off')
+        plt.savefig(figfolder + "htd_test_" + str(i) + ".png")
+        plt.close(fig)
 
     print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
 
@@ -204,14 +219,15 @@ for i in range(len_training):
     # print("type(x_i) =", type(x_i))
 
     # # Show the original figure
-    # data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
-    # data = np.asarray(np.nonzero(data_greylevel)).T
-    # fig = plt.figure(figsize=(5, 5))
-    # plt.scatter(data[:, 0], data[:, 1])
-    # plt.axis('equal')
-    # plt.axis('off')
-    # # plt.savefig(figfolder + 'origin_' + str(i) + '.png')
-    # plt.close(fig)
+    if show_fig:
+        data_greylevel = np.rot90(np.rot90(np.rot90(np.array(x_i))))
+        data = np.asarray(np.nonzero(data_greylevel)).T
+        fig = plt.figure(figsize=(5, 5))
+        plt.scatter(data[:, 0], data[:, 1])
+        plt.axis('equal')
+        plt.axis('off')
+        plt.savefig(figfolder + 'origin_training_' + str(i) + '.png')
+        plt.close(fig)
 
     x_i_2d = np.asarray(np.nonzero(x_i)).T
     x_i_2d_htd = topo_reduce(x_i_2d).detach().numpy().astype(int)
@@ -219,10 +235,11 @@ for i in range(len_training):
     x_i_htd[tuple(x_i_2d_htd.T)] = 1
 
     # # Show the denoised figure
-    # fig = plt.figure(i)
-    # plt.imshow(x_i_htd)
-    # # plt.savefig(figfolder + "htd_" + str(i) + ".png")
-    # plt.close(fig)
+    if show_fig:
+        fig = plt.figure(i)
+        plt.imshow(x_i_htd)
+        plt.savefig(figfolder + "htd_training_" + str(i) + ".png")
+        plt.close(fig)
 
     print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
 
