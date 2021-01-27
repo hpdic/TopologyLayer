@@ -13,6 +13,8 @@ import numpy as np
 from torchvision.transforms import ToTensor
 from datetime import datetime
 
+# Inherited class of neural network (NN)
+# You should not change it unless you want to experiment with other NN parameters
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
