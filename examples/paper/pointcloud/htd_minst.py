@@ -171,6 +171,10 @@ def main():
         transforms.Normalize((0.1307,), (0.3081,))
         ])
 
+    #
+    # The following is just the original implementaion of NN-based classification tasks (with different data sets)
+    #
+
     ## DFZ: for MNIST (70% -> 78%)
     datasetname = "MNIST"
     dataset1 = datasets.MNIST('../data', train=True, download=True,
@@ -237,8 +241,9 @@ def main():
         test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
         scheduler.step()
 
-    # if args.save_model:
-    #     torch.save(model.state_dict(), "mnist_cnn.pt")
+    #
+    # Now let's start the training and testing for the topologically-denosed data
+    #
 
     # Directory for HTD data
     htd_data_dir = './htd_data/'
