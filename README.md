@@ -9,6 +9,7 @@
 ## conda install numpy
 ## conda install pytorch
 ## conda install torchvision -c pytorch
+## Install g++ 
 ## cd [installation_path]
 ## python setup.py install
 ## To run
