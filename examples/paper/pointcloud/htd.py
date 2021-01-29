@@ -30,8 +30,8 @@ from PIL import Image
 show_fig = False
 
 # 1000 and 200 for initial experiments
-len_training = 1    # 1 for trivial test; should be updated to a larger number
-len_test = 1        # 1 for trivial test; should be updated to a larger number
+len_training = 1000    # 1 for trivial test; should be updated to a larger number (1000 for initial experiments)
+len_test = 200        # 1 for trivial test; should be updated to a larger number (200 for initial experiments)
 
 # DFZ: MNIST
 # datasetname = "MNIST"
@@ -132,7 +132,7 @@ def topo_reduce(input, steps=100):
     layer = AlphaLayer(maxdim=1)
     f2 = BarcodePolyFeature(0, 2, 0) # any usefulness?
     f3 = BarcodePolyFeature(1, 2, 1) # 1-dim
-    f4 = BarcodePolyFeature(0, 2, 0) # 0-dim
+    f4 = BarcodePolyFeature(0, 2, 1) # 0-dim
     for i in range(steps):
         optimizer.zero_grad()
 
