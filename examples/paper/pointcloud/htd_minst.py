@@ -189,7 +189,9 @@ def main():
     # dataset2 = datasets.KMNIST('../data', train=False,
     #                    transform=transform)
 
-    ## DFZ: for FashionMNIST (63% -> 58%)
+    ## DFZ: for FashionMNIST
+    #       (62% -> 58%) <- f4(0,2,0)
+    #       (62% -> 60%) <- f4(0,2,1)
     # datasetname = "FashionMNIST"
     # dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
     #                    transform=transform)
