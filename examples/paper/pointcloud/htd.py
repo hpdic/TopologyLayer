@@ -136,10 +136,16 @@ def topo_reduce(input, steps=100):
     for i in range(steps):
         optimizer.zero_grad()
 
-        dgminfo = layer(x) #but does layer(x) change over the iterations?
+        dgminfo = layer(x) #but does layer(x) change over the iterations? Yes, because x is updated (due to optimizer)
+
+        # print(type(x),len(x), len(x[0]),x[0][0])
+        # print(type(f3(dgminfo)))
+        # print(f3(dgminfo))
+
         # print("Increase H1, decrease H0")
         # loss = -f3(dgminfo) + f4(dgminfo)
-        loss = -f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt
+        loss = -f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt #not sure whether those weights will actually take effect
+
         loss.backward()
 
         optimizer.step()

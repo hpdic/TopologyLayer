@@ -175,14 +175,14 @@ def main():
     # The following is just the original implementaion of NN-based classification tasks (with different data sets)
     #
 
-    ## DFZ: for MNIST (70% -> 78%)
-    datasetname = "MNIST"
-    dataset1 = datasets.MNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.MNIST('../data', train=False,
-                       transform=transform)
+    ## DFZ: for MNIST (70% -> 78%), same for f4(0,2,0) and f4(0,2,1)
+    # datasetname = "MNIST"
+    # dataset1 = datasets.MNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.MNIST('../data', train=False,
+    #                    transform=transform)
 
-    ## DFZ: for KMNIST (34% -> 47%)
+    ## DFZ: for KMNIST (34% -> 47%), same for f4(0,2,0) and f4(0,2,1)
     # datasetname = "KMNIST"
     # dataset1 = datasets.KMNIST('../data', train=True, download=True,
     #                    transform=transform)
@@ -190,13 +190,12 @@ def main():
     #                    transform=transform)
 
     ## DFZ: for FashionMNIST
-    #       (62% -> 58%) <- f4(0,2,0)
-    #       (62% -> 60%) <- f4(0,2,1)
-    # datasetname = "FashionMNIST"
-    # dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
-    #                    transform=transform)
-    # dataset2 = datasets.FashionMNIST('../data', train=False,
-    #                    transform=transform)
+    #       (62% -> 60%) <- f4(0,2,1), same for f4(0,2,0) and f4(0,2,1)
+    datasetname = "FashionMNIST"
+    dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.FashionMNIST('../data', train=False,
+                       transform=transform)
 
     train_loader = torch.utils.data.DataLoader(dataset1, **kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **kwargs)

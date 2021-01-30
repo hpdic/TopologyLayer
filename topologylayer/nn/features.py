@@ -81,7 +81,7 @@ def get_barcode_lengths_means(dgm, issublevel):
     lengths[lengths != lengths] = 0
     return lengths, means
 
-
+# DFZ: you'll need to recompile the project to reflect the changes made to this file
 class BarcodePolyFeature(nn.Module):
     """
     applies function
@@ -108,7 +108,15 @@ class BarcodePolyFeature(nn.Module):
         lengths, means = get_barcode_lengths_means(dgm, issublevel)
 
         #DFZ: this is the place where to update the equation in the paper
-        return torch.sum(torch.mul(torch.pow(lengths, self.p), torch.pow(means, self.q)))
+        original_res = torch.sum(torch.mul(torch.pow(lengths, self.p), torch.pow(means, self.q)))
+        # print("lengths =", lengths)
+        # print("means =", means)
+        # print("original_res =", original_res)
+        #DFZ: so, how about using an inner product between lengths and means?
+        new_res = torch.dot(lengths, means)
+        # print("new_res =", new_res)
+
+        return new_res
 
 
 def pad_k(t, k, pad=0.0):
