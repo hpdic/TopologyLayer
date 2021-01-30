@@ -113,6 +113,8 @@ class BarcodePolyFeature(nn.Module):
         # print("means =", means)
         # print("original_res =", original_res)
         #DFZ: so, how about using an inner product between lengths and means?
+        #DFZ: this seems to have no impact to the final result; maybe just different converging rate
+        #DFZ: but at least we now have an unparameterized loss function
         new_res = torch.dot(lengths, means)
         # print("new_res =", new_res)
 
