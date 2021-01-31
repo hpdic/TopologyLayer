@@ -81,10 +81,6 @@ def main():
     # mnist_testset = datasets.FashionMNIST('./data', train=False,
     #                            transform=None)
 
-    #
-    #DFZ: save the compression rate result in a seperate file
-    #
-    fd = open("res_compress_rate_"+datasetname, "w")
 
     ############################
     ##### The following shows a specific (x,y) data pair from the data set
@@ -140,6 +136,8 @@ def main():
     if not os.path.exists(figfolder):
         os.mkdir(figfolder)
 
+
+
     # seed for reproduciblity
     # np.random.seed(0)
 
@@ -157,8 +155,20 @@ def main():
     '''
     Preprocess the image with topological denoising
     '''
+    #for now, we want to set the same weights on different dimensions
     g_dim1wt = 1
-    g_dim0wt = 20
+    g_dim0wt = 1
+
+    # folder for storing experimental results of pixel compression of each figure
+    pixel_folder = 'pixel_compression/'
+    if not os.path.exists(figfolder):
+        os.mkdir(figfolder)
+
+    #
+    #DFZ: save the compression rate result in a seperate file
+    #
+    fd = open(pixel_folder+"res_compress_rate_"+datasetname+"_d1_"+str(g_dim1wt)+"_d0_"+str(g_dim0wt)+".csv", "w")
+
     def topo_reduce(input, steps=100):
         x = torch.autograd.Variable(torch.tensor(input).type(torch.float), requires_grad=True)
         lr = 1e-2
@@ -178,7 +188,7 @@ def main():
 
             # print("Increase H1, decrease H0")
             # loss = -f3(dgminfo) + f4(dgminfo)
-            loss = -f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt #not sure whether those weights will actually take effect
+            loss = f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt #not sure whether those weights will actually take effect
 
             loss.backward()
 
@@ -284,6 +294,8 @@ def main():
             plt.close(fig)
 
         print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
+        fd.write("train " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
+                 str(np.count_nonzero(x_i_htd)) + "\n")
 
         # Convert trainset_htd to Image and save as the new training set
         new_im = Image.fromarray(x_i_htd)
