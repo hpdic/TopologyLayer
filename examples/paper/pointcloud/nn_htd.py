@@ -176,18 +176,18 @@ def main():
     #
 
     ## DFZ: for MNIST (70% -> 78%), same for f4(0,2,0) and f4(0,2,1)
-    # datasetname = "MNIST"
-    # dataset1 = datasets.MNIST('../data', train=True, download=True,
-    #                    transform=transform)
-    # dataset2 = datasets.MNIST('../data', train=False,
-    #                    transform=transform)
+    datasetname = "MNIST"
+    dataset1 = datasets.MNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.MNIST('../data', train=False,
+                       transform=transform)
 
     ## DFZ: for KMNIST (34% -> 47%), same for f4(0,2,0) and f4(0,2,1)
-    datasetname = "KMNIST"
-    dataset1 = datasets.KMNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.KMNIST('../data', train=False,
-                       transform=transform)
+    # datasetname = "KMNIST"
+    # dataset1 = datasets.KMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.KMNIST('../data', train=False,
+    #                    transform=transform)
 
     ## DFZ: for FashionMNIST
     #       (62% -> 60%) <- f4(0,2,1), same for f4(0,2,0) and f4(0,2,1)
