@@ -176,18 +176,18 @@ def main():
     #
 
     ## DFZ: for MNIST (70% -> 78%), same for f4(0,2,0) and f4(0,2,1)
-    datasetname = "MNIST"
-    dataset1 = datasets.MNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.MNIST('../data', train=False,
-                       transform=transform)
+    # datasetname = "MNIST"
+    # dataset1 = datasets.MNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.MNIST('../data', train=False,
+    #                    transform=transform)
 
     ## DFZ: for KMNIST (34% -> 47%), same for f4(0,2,0) and f4(0,2,1)
-    # datasetname = "KMNIST"
-    # dataset1 = datasets.KMNIST('../data', train=True, download=True,
-    #                    transform=transform)
-    # dataset2 = datasets.KMNIST('../data', train=False,
-    #                    transform=transform)
+    datasetname = "KMNIST"
+    dataset1 = datasets.KMNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.KMNIST('../data', train=False,
+                       transform=transform)
 
     ## DFZ: for FashionMNIST
     #       (62% -> 60%) <- f4(0,2,1), same for f4(0,2,0) and f4(0,2,1)
@@ -197,6 +197,16 @@ def main():
     # dataset2 = datasets.FashionMNIST('../data', train=False,
     #                    transform=transform)
 
+    BATCH_SIZE = 100 # Do NOT change this value
+
+    # Must be multiples of BATCH_SIZE
+    len_training = 400
+    len_test = 100
+    total_epochs = 3 # how many rounds; PyTorch's default value is 14
+    run_vanilla = True
+
+    #Load vanilla MNIST data
+
     train_loader = torch.utils.data.DataLoader(dataset1, **kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **kwargs)
 
@@ -204,7 +214,7 @@ def main():
     # So, for training data, there's a prefix batch ID;
     #       for test data howefver, no such batch ID exists.
     train_loader_htd = []
-    nsamples = 10
+    nsamples = len_training / BATCH_SIZE
     # for batch_idx, (data, target) in enumerate(train_loader):
     for i, (data, target) in enumerate(train_loader):
         if i >= nsamples:
@@ -217,7 +227,7 @@ def main():
 
     # Limit the test data to 200
     test_loader_htd = []
-    nsamples = 2
+    nsamples = len_test / BATCH_SIZE
     i = 0
     # for batch_idx, (data, target) in enumerate(train_loader):
     for data, target in test_loader:
@@ -229,52 +239,70 @@ def main():
     # print(test_loader_htd[0][1].shape)
     # print(len(test_loader_htd[0]))
 
-    model = Net().to(device)
-    optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
 
-    scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
-    for epoch in range(1, args.epochs + 1):
+    #
+    # Vanilla NN:
+    #
+    if run_vanilla:
+        model = Net().to(device)
+        optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
+        scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
+        # for epoch in range(1, args.epochs + 1):
+        for epoch in range(1, total_epochs + 1):
+            print("Start PyTorch training for", datasetname)
+            train(args, model, device, train_loader_htd, optimizer, epoch)
 
-        print("Start PyTorch training for", datasetname)
-        train(args, model, device, train_loader_htd, optimizer, epoch)
-
-        print("Start PyTorch testing for", datasetname)
-        test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
-        scheduler.step()
+            print("Start PyTorch testing for", datasetname)
+            test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
+            scheduler.step()
 
     #
     # Now let's start the training and testing for the topologically-denosed data
     #
 
-    # Directory for HTD data
-    htd_data_dir = './htd_data/'
-    # if not os.path.exists(htd_data_dir):
-    #     os.mkdir(htd_data_dir)
+    # HTD:
 
-    # Load data from pickle
-    len_training = 1000
-    htd_trainset = htd_data_dir + datasetname + '_htd_trainset.pkl'
-    training_data_htd = pickle.load(open(htd_trainset, 'rb'))
-    # print("type(loaded_data) =", type(loaded_data))
-    print("Loaded", len(training_data_htd), "HTD training figures.")
-    len_test = 200
-    htd_testset = htd_data_dir + datasetname + '_htd_testset.pkl'
-    test_data_htd = pickle.load(open(htd_testset, 'rb'))
-    # print("type(loaded_data) =", type(loaded_data))
-    print("Loaded", len(test_data_htd), "HTD test figures.")
+    if not run_vanilla:
 
-    # DFZ: TODO: the following should have more epochs
+        # Directory for HTD data
+        htd_data_dir = './htd_data/'
+        # if not os.path.exists(htd_data_dir):
+        #     os.mkdir(htd_data_dir)
 
-    # HTD training
-    print("Start HTD training for", datasetname)
-    epoch = 1 # just run once
+        # Load data from pickle
 
-    training_data_htd_batch = list2batch(training_data_htd, 100)
-    train(args, model, device, training_data_htd_batch, optimizer, epoch)
+        htd_trainset = htd_data_dir + datasetname + '_htd_trainset.pkl'
+        training_data_htd = pickle.load(open(htd_trainset, 'rb'))[0:len_training]
+        # print("type(loaded_data) =", type(loaded_data))
+        print("Loaded", len(training_data_htd), "HTD training figures.")
+        htd_testset = htd_data_dir + datasetname + '_htd_testset.pkl'
+        test_data_htd = pickle.load(open(htd_testset, 'rb'))[0:len_test]
+        print("type(test_data_htd) =", type(test_data_htd))
+        print("Loaded", len(test_data_htd), "HTD test figures.")
 
-    print("Start HTD testing for", datasetname)
-    test_data_htd_batch = list2batch(test_data_htd, 100)
-    test(model, device, test_data_htd_batch, len(test_data_htd))
+
+        #reset the model
+        model = Net().to(device)
+        optimizer = optim.Adadelta(model.parameters(), lr=args.lr)
+        scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
+
+        #Convert HTD data
+        training_data_htd_batch = list2batch(training_data_htd, 100)
+        test_data_htd_batch = list2batch(test_data_htd, 100)
+
+        for epoch in range(1, total_epochs + 1):
+
+            # print("Start PyTorch training for", datasetname)
+            # train(args, model, device, train_loader_htd, optimizer, epoch)
+
+            print("Start HTD training for", datasetname)
+            # train(args, model, device, train_loader_htd, optimizer, epoch)
+            train(args, model, device, training_data_htd_batch, optimizer, epoch)
+
+            print("Start HTD testing for", datasetname)
+            test(model, device, test_data_htd_batch, len(test_data_htd))
+
+            scheduler.step()
 
 '''
 Convert a list ((image, label)) into batches
