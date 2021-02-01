@@ -183,19 +183,19 @@ def main():
     #                    transform=transform)
 
     ## DFZ: for KMNIST (34% -> 47%), same for f4(0,2,0) and f4(0,2,1)
-    # datasetname = "KMNIST"
-    # dataset1 = datasets.KMNIST('../data', train=True, download=True,
-    #                    transform=transform)
-    # dataset2 = datasets.KMNIST('../data', train=False,
-    #                    transform=transform)
+    datasetname = "KMNIST"
+    dataset1 = datasets.KMNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.KMNIST('../data', train=False,
+                       transform=transform)
 
     ## DFZ: for FashionMNIST
     #       (62% -> 60%) <- f4(0,2,1), same for f4(0,2,0) and f4(0,2,1)
-    datasetname = "FashionMNIST"
-    dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.FashionMNIST('../data', train=False,
-                       transform=transform)
+    # datasetname = "FashionMNIST"
+    # dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.FashionMNIST('../data', train=False,
+    #                    transform=transform)
 
     train_loader = torch.utils.data.DataLoader(dataset1, **kwargs)
     test_loader = torch.utils.data.DataLoader(dataset2, **kwargs)
@@ -262,6 +262,8 @@ def main():
     test_data_htd = pickle.load(open(htd_testset, 'rb'))
     # print("type(loaded_data) =", type(loaded_data))
     print("Loaded", len(test_data_htd), "HTD test figures.")
+
+    # DFZ: TODO: the following should have more epochs
 
     # HTD training
     print("Start HTD training for", datasetname)
