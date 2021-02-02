@@ -17,6 +17,7 @@
 ### To run original data: python mnist.py
 ### To denoise data: python htd.py
 ### To run NN denoised data: python nn_htd.py (it will automatically run the vanilla case as well)
+### To sweep parameters: python run.py
 
 
 
