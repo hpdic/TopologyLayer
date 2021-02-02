@@ -12,6 +12,7 @@ import pickle
 import numpy as np
 from torchvision.transforms import ToTensor
 from datetime import datetime
+import sys
 
 # Inherited class of neural network (NN)
 # You should not change it unless you want to experiment with other NN parameters
@@ -128,8 +129,10 @@ def test(model, device, test_loader, n_tot):
         test_loss, correct, n_tot,
         100. * correct / n_tot))
 
+    return(correct / n_tot)
 
-def main():
+
+def nn_topo(**args):
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--batch-size', type=int, default=100, metavar='N',
@@ -152,6 +155,10 @@ def main():
                         help='how many batches to wait before logging training status')
     parser.add_argument('--save-model', action='store_true', default=False,
                         help='For Saving the current Model')
+    parser.add_argument('--dataset', type=int, default=1, metavar='S',
+                        help='1: MNIST; 2: KMNIST')
+    parser.add_argument('--htdflag', type=int, default=1, metavar='S',
+                        help='1: htd enabled; 0: htd disabled')
     args = parser.parse_args()
     use_cuda = not args.no_cuda and torch.cuda.is_available()
 
@@ -174,7 +181,29 @@ def main():
     #
     # The following is just the original implementaion of NN-based classification tasks (with different data sets)
     #
+    whichdataset = args.dataset
+    run_vanilla = False if 1 == args.htdflag else True
 
+    if 1 == whichdataset:
+        datasetname = "MNIST"
+        dataset1 = datasets.MNIST('../data', train=True, download=True,
+                           transform=transform)
+        dataset2 = datasets.MNIST('../data', train=False,
+                           transform=transform)
+    elif 2 == whichdataset:
+        datasetname = "KMNIST"
+        dataset1 = datasets.KMNIST('../data', train=True, download=True,
+                                   transform=transform)
+        dataset2 = datasets.KMNIST('../data', train=False,
+                                   transform=transform)
+
+    elif 3 == whichdataset:
+        datasetname = "FashionMNIST"
+        dataset1 = datasets.FashionMNIST('../data', train=True, download=True,
+                           transform=transform)
+        dataset2 = datasets.FashionMNIST('../data', train=False,
+                           transform=transform)
+    print("Working on dataset", datasetname)
     ## DFZ: for MNIST (70% -> 78%), same for f4(0,2,0) and f4(0,2,1)
     # datasetname = "MNIST"
     # dataset1 = datasets.MNIST('../data', train=True, download=True,
@@ -183,11 +212,11 @@ def main():
     #                    transform=transform)
 
     ## DFZ: for KMNIST (34% -> 47%), same for f4(0,2,0) and f4(0,2,1)
-    datasetname = "KMNIST"
-    dataset1 = datasets.KMNIST('../data', train=True, download=True,
-                       transform=transform)
-    dataset2 = datasets.KMNIST('../data', train=False,
-                       transform=transform)
+    # datasetname = "KMNIST"
+    # dataset1 = datasets.KMNIST('../data', train=True, download=True,
+    #                    transform=transform)
+    # dataset2 = datasets.KMNIST('../data', train=False,
+    #                    transform=transform)
 
     ## DFZ: for FashionMNIST
     #       (62% -> 60%) <- f4(0,2,1), same for f4(0,2,0) and f4(0,2,1)
@@ -203,7 +232,6 @@ def main():
     len_training = 400
     len_test = 100
     total_epochs = 3 # how many rounds; PyTorch's default value is 14
-    run_vanilla = True
 
     #Load vanilla MNIST data
 
@@ -239,6 +267,7 @@ def main():
     # print(test_loader_htd[0][1].shape)
     # print(len(test_loader_htd[0]))
 
+    res = []
 
     #
     # Vanilla NN:
@@ -253,7 +282,9 @@ def main():
             train(args, model, device, train_loader_htd, optimizer, epoch)
 
             print("Start PyTorch testing for", datasetname)
-            test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
+            res_epoch = test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
+            res.append(res_epoch)
+
             scheduler.step()
 
     #
@@ -300,9 +331,15 @@ def main():
             train(args, model, device, training_data_htd_batch, optimizer, epoch)
 
             print("Start HTD testing for", datasetname)
-            test(model, device, test_data_htd_batch, len(test_data_htd))
+            res_epoch = test(model, device, test_data_htd_batch, len(test_data_htd))
+            res.append(res_epoch)
 
             scheduler.step()
+
+    print(os.path.basename(__file__) + ": ")
+    print(res)
+
+    return res
 
 '''
 Convert a list ((image, label)) into batches
@@ -342,6 +379,9 @@ def list2batch(lst, bsize):
     # l = len(lst)
     # for ndx in range(0, l, bsize):
     #     yield lst[ndx:min(ndx + bsize, l)]
+
+def main():
+    nn_topo(sys.argv[1], sys.argv[2])
 
 if __name__ == '__main__':
     main()

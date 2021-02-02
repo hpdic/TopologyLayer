@@ -29,14 +29,23 @@ from PIL import Image
 import sys
 
 def main():
+    topo(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
 
-    whichdataset = sys.argv[1]
+def topo(*args):
+
+    if args is not None:
+        whichdataset = args[0]
+        g_dim1wt = int(args[1])
+        g_dim0wt = int(args[2])
 
     show_fig = False
 
     # 1000 and 200 for initial experiments
-    len_training = 1000    # 1 for trivial test; should be updated to a larger number (1000 for initial experiments)
-    len_test = 200        # 1 for trivial test; should be updated to a larger number (200 for initial experiments)
+    len_training = 1    # 1 for trivial test; should be updated to a larger number (1000 for initial experiments)
+    len_test = 0        # 1 for trivial test; should be updated to a larger number (200 for initial experiments)
+
+    total_pixel_after = 0
+    total_pixel_before = 0
 
     #
     #DFZ: parse the dataset name
@@ -156,11 +165,16 @@ def main():
     Preprocess the image with topological denoising
     '''
     #for now, we want to set the same weights on different dimensions
-    g_dim1wt = 1
-    g_dim0wt = 1
+    if g_dim1wt == None:
+        g_dim1wt = 1
+    if g_dim0wt == None:
+        g_dim0wt = 1
+
+    print("dim1 weight = " + str(g_dim1wt))
+    print("dim0 weight = " + str(g_dim0wt))
 
     # folder for storing experimental results of pixel compression of each figure
-    pixel_folder = 'pixel_compression/'
+    pixel_folder = 'eval_results/'
     if not os.path.exists(figfolder):
         os.mkdir(figfolder)
 
@@ -251,6 +265,11 @@ def main():
         fd.write("test " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
                  str(np.count_nonzero(x_i_htd)) + "\n")
 
+        total_pixel_after += np.count_nonzero(x_i_htd)
+        total_pixel_before += int(np.count_nonzero(np.array(x_i)))
+        print("total_pixel_after = " + str(total_pixel_after))
+        print("total_pixel_before = " + str(total_pixel_before))
+
         # Convert trainset_htd to Image and save as the new training set
         new_im = Image.fromarray(x_i_htd)
         # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
@@ -297,11 +316,18 @@ def main():
         fd.write("train " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
                  str(np.count_nonzero(x_i_htd)) + "\n")
 
+        total_pixel_after += np.count_nonzero(x_i_htd)
+        total_pixel_before += int(np.count_nonzero(np.array(x_i)))
+        print("total_pixel_after = " + str(total_pixel_after))
+        print("total_pixel_before = " + str(total_pixel_before))
+
         # Convert trainset_htd to Image and save as the new training set
         new_im = Image.fromarray(x_i_htd)
         # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
         trainset_htd.append((new_im, y_i))
     print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
+
+    return (total_pixel_before, total_pixel_after)
 
     # Save htd data into pickle files
     htd_trainset = htd_data_dir + datasetname + '_' + str(len_training) + '_htd_trainset.pkl'
