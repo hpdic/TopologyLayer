@@ -47,7 +47,7 @@ def train_htd(args, model, device, train_loader, optimizer, epoch):
     for data_img, target in train_loader:
         # print("data =", data)
         data = ToTensor()(data_img).unsqueeze(0)
-        print("type(data) =", type(data))
+        # print("type(data) =", type(data))
 
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
@@ -98,9 +98,9 @@ def test_htd(model, device, test_loader, n_tot):
 
     test_loss /= n_tot
 
-    print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
-        test_loss, correct, n_tot,
-        100. * correct / n_tot))
+    # print('\nTest set: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+    #     test_loss, correct, n_tot,
+    #     100. * correct / n_tot))
 
 def test(model, device, test_loader, n_tot):
     model.eval()
@@ -125,7 +125,7 @@ def test(model, device, test_loader, n_tot):
 
     test_loss /= n_tot
 
-    print('\nTest result: Average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)\n'.format(
+    print('Test result: average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
         test_loss, correct, n_tot,
         100. * correct / n_tot))
 
@@ -203,7 +203,8 @@ def nn_topo(**args):
                            transform=transform)
         dataset2 = datasets.FashionMNIST('../data', train=False,
                            transform=transform)
-    print("Working on dataset", datasetname)
+
+    print("NN-htd for dataset", datasetname)
     ## DFZ: for MNIST (70% -> 78%), same for f4(0,2,0) and f4(0,2,1)
     # datasetname = "MNIST"
     # dataset1 = datasets.MNIST('../data', train=True, download=True,
@@ -278,10 +279,10 @@ def nn_topo(**args):
         scheduler = StepLR(optimizer, step_size=1, gamma=args.gamma)
         # for epoch in range(1, args.epochs + 1):
         for epoch in range(1, total_epochs + 1):
-            print("Start PyTorch training for", datasetname)
+            # print("Start PyTorch training for", datasetname)
             train(args, model, device, train_loader_htd, optimizer, epoch)
 
-            print("Start PyTorch testing for", datasetname)
+            # print("Start PyTorch testing for", datasetname)
             res_epoch = test(model, device, test_loader_htd, len(test_loader_htd) * len(test_loader_htd[0][1]))
             res.append(res_epoch)
 
@@ -305,11 +306,11 @@ def nn_topo(**args):
         htd_trainset = htd_data_dir + datasetname + '_htd_trainset.pkl'
         training_data_htd = pickle.load(open(htd_trainset, 'rb'))[0:len_training]
         # print("type(loaded_data) =", type(loaded_data))
-        print("Loaded", len(training_data_htd), "HTD training figures.")
+        # print("Loaded", len(training_data_htd), "HTD training figures.")
         htd_testset = htd_data_dir + datasetname + '_htd_testset.pkl'
         test_data_htd = pickle.load(open(htd_testset, 'rb'))[0:len_test]
-        print("type(test_data_htd) =", type(test_data_htd))
-        print("Loaded", len(test_data_htd), "HTD test figures.")
+        # print("type(test_data_htd) =", type(test_data_htd))
+        # print("Loaded", len(test_data_htd), "HTD test figures.")
 
 
         #reset the model
@@ -326,18 +327,18 @@ def nn_topo(**args):
             # print("Start PyTorch training for", datasetname)
             # train(args, model, device, train_loader_htd, optimizer, epoch)
 
-            print("Start HTD training for", datasetname)
+            # print("Start HTD training for", datasetname)
             # train(args, model, device, train_loader_htd, optimizer, epoch)
             train(args, model, device, training_data_htd_batch, optimizer, epoch)
 
-            print("Start HTD testing for", datasetname)
+            # print("Start HTD testing for", datasetname)
             res_epoch = test(model, device, test_data_htd_batch, len(test_data_htd))
             res.append(res_epoch)
 
             scheduler.step()
 
-    print(os.path.basename(__file__) + ": ")
-    print(res)
+    # print(os.path.basename(__file__) + ": ")
+    # print(res)
 
     return res
 
@@ -381,7 +382,7 @@ def list2batch(lst, bsize):
     #     yield lst[ndx:min(ndx + bsize, l)]
 
 def main():
-    nn_topo(sys.argv[1], sys.argv[2])
+    nn_topo()
 
 if __name__ == '__main__':
     main()

@@ -2,13 +2,6 @@
 # For denoising, we want to decrease H0 and promote the largest H1 
 #   htd: High-order Topological Denoising
 #
-#   TODO: we need a script to loop over the following parameters:
-#       - g_dim1wt: weight put on the 1-dimensional loss
-#       - g_dim0wt: weight put on the 0-dimensional loss
-#       - len_training: number of data for training
-#       - len_test: number of data for test
-#       - show_fig=False: don't show the figures by default
-#
 
 from __future__ import print_function
 from topologylayer.nn import AlphaLayer
@@ -29,7 +22,13 @@ from PIL import Image
 import sys
 
 def main():
-    topo(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+    argc = len(sys.argv)
+    argv1 = '1' if argc < 2 else argv[1]
+    argv2 = '1' if argc < 3 else argv[2]
+    argv3 = '1' if argc < 4 else argv[3]
+
+    topo(argv1, int(argv2), int(argv3))
+    # topo(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
 
 def topo(*args):
 
@@ -40,9 +39,9 @@ def topo(*args):
 
     show_fig = False
 
-    # 1000 and 200 for initial experiments
-    len_training = 1    # 1 for trivial test; should be updated to a larger number (1000 for initial experiments)
-    len_test = 0        # 1 for trivial test; should be updated to a larger number (200 for initial experiments)
+    # We have tested up to 1000 and 200 for initial experiments, which took too much time; we now use (400, 100)
+    len_training = 400    # 1 for trivial test; should be updated to a larger number (400 for our experiments)
+    len_test = 100        # 1 for trivial test; should be updated to a larger number (100 for our experiments)
 
     total_pixel_after = 0
     total_pixel_before = 0
@@ -70,7 +69,7 @@ def topo(*args):
     else:
         print("Data set not available; please choose from MNIST[1], KMINST[2], or FashionMNIST[3].")
         exit(0)
-    print("Working on dataset", datasetname)
+
     # DFZ: MNIST
     # datasetname = "MNIST"
     # mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
@@ -170,8 +169,8 @@ def topo(*args):
     if g_dim0wt == None:
         g_dim0wt = 1
 
-    print("dim1 weight = " + str(g_dim1wt))
-    print("dim0 weight = " + str(g_dim0wt))
+    # print("dim1 weight = " + str(g_dim1wt))
+    # print("dim0 weight = " + str(g_dim0wt))
 
     # folder for storing experimental results of pixel compression of each figure
     pixel_folder = 'eval_results/'
@@ -204,14 +203,17 @@ def topo(*args):
             # loss = -f3(dgminfo) + f4(dgminfo)
             loss = f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt #not sure whether those weights will actually take effect
 
+            # print("f3(dgminfo) = " + str(f3(dgminfo)))
+            # print("f4(dgminfo) = " + str(f4(dgminfo)))
+
             loss.backward()
 
             optimizer.step()
 
             if loss.item() <= 5.0:  # should have some eplison to avoid overfitting
                 break
-            if (i % 50 == 0):
-                print("[Iter %d] [top loss: %f]" % (i, loss.item()))
+            # if (i % 50 == 0):
+            #     print("[Iter %d] [top loss: %f]" % (i, loss.item()))
         return x
 
     # x = topo_reduce(data)
@@ -226,10 +228,11 @@ def topo(*args):
     # HTD test set
     # l = len(mnist_testset)
     testset_htd = []
-    print("HTD test set started at", datetime.now().strftime("%H:%M:%S"))
+    print("HTD started at", datetime.now().strftime("%H:%M:%S"))
     for i in range(len_test):
-        print("\n==========================================")
-        print("Processing the " + str(i) + "-th figure.")
+        # print("\n==========================================")
+        if i % 50 == 0:
+            print("Processing the " + str(i) + "-th test figure.")
         x_i, y_i = mnist_testset[i]
         # print("type(x_i) =", type(x_i))
 
@@ -261,20 +264,20 @@ def topo(*args):
             plt.savefig(figfolder + "htd_test_" + str(i) + ".png")
             plt.close(fig)
 
-        print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
-        fd.write("test " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
-                 str(np.count_nonzero(x_i_htd)) + "\n")
+        # print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
+        # fd.write("test " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
+        #          str(np.count_nonzero(x_i_htd)) + "\n")
 
         total_pixel_after += np.count_nonzero(x_i_htd)
         total_pixel_before += int(np.count_nonzero(np.array(x_i)))
-        print("total_pixel_after = " + str(total_pixel_after))
-        print("total_pixel_before = " + str(total_pixel_before))
+        # print("total_pixel_after = " + str(total_pixel_after))
+        # print("total_pixel_before = " + str(total_pixel_before))
 
         # Convert trainset_htd to Image and save as the new training set
         new_im = Image.fromarray(x_i_htd)
         # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
         testset_htd.append((new_im, y_i))
-    print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
+    # print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
     htd_testset = htd_data_dir + datasetname + '_' + str(len_test) + '_htd_testset.pkl'
     file = open(htd_testset, 'wb')
     pickle.dump(testset_htd, file)
@@ -282,10 +285,11 @@ def topo(*args):
     # HTD training set
     # len = len(mnist_trainset)
     trainset_htd = []
-    print("HTD training set started at", datetime.now().strftime("%H:%M:%S"))
+    # print("HTD training set started at", datetime.now().strftime("%H:%M:%S"))
     for i in range(len_training):
-        print("\n==========================================")
-        print("Processing the " + str(i) + "-th figure.")
+        # print("\n==========================================")
+        if i % 50 == 0:
+            print("Processing the " + str(i) + "-th training figure.")
         x_i, y_i = mnist_trainset[i]
         # print("type(x_i) =", type(x_i))
 
@@ -312,20 +316,20 @@ def topo(*args):
             plt.savefig(figfolder + "htd_training_" + str(i) + ".png")
             plt.close(fig)
 
-        print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
+        # print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
         fd.write("train " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
                  str(np.count_nonzero(x_i_htd)) + "\n")
 
         total_pixel_after += np.count_nonzero(x_i_htd)
         total_pixel_before += int(np.count_nonzero(np.array(x_i)))
-        print("total_pixel_after = " + str(total_pixel_after))
-        print("total_pixel_before = " + str(total_pixel_before))
+        # print("total_pixel_after = " + str(total_pixel_after))
+        # print("total_pixel_before = " + str(total_pixel_before))
 
         # Convert trainset_htd to Image and save as the new training set
         new_im = Image.fromarray(x_i_htd)
         # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
         trainset_htd.append((new_im, y_i))
-    print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
+    print("HTD stoped at", datetime.now().strftime("%H:%M:%S"), "\n")
 
     return (total_pixel_before, total_pixel_after)
 
