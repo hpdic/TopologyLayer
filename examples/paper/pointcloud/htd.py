@@ -40,8 +40,9 @@ def topo(*args):
     show_fig = False
 
     # We have tested up to 1000 and 200 for initial experiments, which took too much time; we now use (300, 100)
-    len_training = 10000    # 1 for trivial test; should be updated to a larger number (400 for our experiments)
-    len_test = 1000        # 1 for trivial test; should be updated to a larger number (100 for our experiments)
+    len_training = 60000    # 1 for trivial test; should be updated to a larger number (400 for our experiments)
+    len_test = 10000        # 1 for trivial test; should be updated to a larger number (100 for our experiments)
+    htd_batch = 500
 
     total_pixel_after = 0
     total_pixel_before = 0
@@ -231,7 +232,7 @@ def topo(*args):
     print("HTD started at", datetime.now().strftime("%H:%M:%S"))
     for i in range(len_test):
         # print("\n==========================================")
-        if i % 25 == 0:
+        if i % htd_batch == 0:
             print("Processing the " + str(i) + "-th test figure at " + datetime.now().strftime("%H:%M:%S"))
         x_i, y_i = mnist_testset[i]
         # print("type(x_i) =", type(x_i))
@@ -289,7 +290,7 @@ def topo(*args):
     # print("HTD training set started at", datetime.now().strftime("%H:%M:%S"))
     for i in range(len_training):
         # print("\n==========================================")
-        if i % 25 == 0:
+        if i % htd_batch == 0:
             print("Processing the " + str(i) + "-th training figure at " + datetime.now().strftime("%H:%M:%S"))
         x_i, y_i = mnist_trainset[i]
         # print("type(x_i) =", type(x_i))

@@ -242,9 +242,9 @@ def nn_topo(dataset, htdflag, dim1='NA', dim0='NA'):
     BATCH_SIZE = 100 # Do NOT change this value 100
 
     # Must be multiples of BATCH_SIZE
-    len_training = 10000
-    len_test = 1000
-    total_epochs = 10 # how many rounds; PyTorch's default value is 14
+    len_training = 60000
+    len_test = 10000
+    total_epochs = 100 # how many rounds; PyTorch's default value is 14
 
     #Load vanilla MNIST data
 
