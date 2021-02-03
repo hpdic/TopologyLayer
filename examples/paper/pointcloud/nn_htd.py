@@ -132,33 +132,33 @@ def test(model, device, test_loader, n_tot):
     return(correct / n_tot)
 
 
-def nn_topo(**args):
+def nn_topo(dataset, htdflag, dim1='NA', dim0='NA'):
     # Training settings
     parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
     parser.add_argument('--batch-size', type=int, default=100, metavar='N',
                         help='input batch size for training (default: 64)')
-    parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
-                        help='input batch size for testing (default: 1000)')
-    parser.add_argument('--epochs', type=int, default=1, metavar='N',
-                        help='number of epochs to train (default: 14)')
+    # parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
+    #                     help='input batch size for testing (default: 1000)')
+    # parser.add_argument('--epochs', type=int, default=1, metavar='N',
+    #                     help='number of epochs to train (default: 14)')
     parser.add_argument('--lr', type=float, default=1.0, metavar='LR',
                         help='learning rate (default: 1.0)')
     parser.add_argument('--gamma', type=float, default=0.7, metavar='M',
                         help='Learning rate step gamma (default: 0.7)')
     parser.add_argument('--no-cuda', action='store_true', default=False,
                         help='disables CUDA training')
-    parser.add_argument('--dry-run', action='store_true', default=False,
-                        help='quickly check a single pass')
+    # parser.add_argument('--dry-run', action='store_true', default=False,
+    #                     help='quickly check a single pass')
     parser.add_argument('--seed', type=int, default=1, metavar='S',
                         help='random seed (default: 1)')
     parser.add_argument('--log-interval', type=int, default=10, metavar='N',
                         help='how many batches to wait before logging training status')
     parser.add_argument('--save-model', action='store_true', default=False,
                         help='For Saving the current Model')
-    parser.add_argument('--dataset', type=int, default=1, metavar='S',
-                        help='1: MNIST; 2: KMNIST')
-    parser.add_argument('--htdflag', type=int, default=1, metavar='S',
-                        help='1: htd enabled; 0: htd disabled')
+    # parser.add_argument('--dataset', type=int, default=1, metavar='S',
+    #                     help='1: MNIST; 2: KMNIST')
+    # parser.add_argument('--htdflag', type=int, default=0, metavar='S',
+    #                     help='1: htd enabled; 0: htd disabled')
     args = parser.parse_args()
     use_cuda = not args.no_cuda and torch.cuda.is_available()
 
@@ -181,16 +181,20 @@ def nn_topo(**args):
     #
     # The following is just the original implementaion of NN-based classification tasks (with different data sets)
     #
-    whichdataset = args.dataset
-    run_vanilla = False if 1 == args.htdflag else True
+    whichdataset = dataset
+    run_vanilla = True
+    if htdflag != 0:
+        run_vanilla = False
 
-    if 1 == whichdataset:
-        datasetname = "MNIST"
-        dataset1 = datasets.MNIST('../data', train=True, download=True,
-                           transform=transform)
-        dataset2 = datasets.MNIST('../data', train=False,
-                           transform=transform)
-    elif 2 == whichdataset:
+    # if 1 == whichdataset:
+    # Default dataset
+    datasetname = "MNIST"
+    dataset1 = datasets.MNIST('../data', train=True, download=True,
+                       transform=transform)
+    dataset2 = datasets.MNIST('../data', train=False,
+                       transform=transform)
+
+    if 2 == whichdataset:
         datasetname = "KMNIST"
         dataset1 = datasets.KMNIST('../data', train=True, download=True,
                                    transform=transform)
@@ -204,7 +208,15 @@ def nn_topo(**args):
         dataset2 = datasets.FashionMNIST('../data', train=False,
                            transform=transform)
 
-    print("NN-htd for dataset", datasetname)
+    elif 1 != whichdataset:
+        print("Unknown dataset.")
+        exit(0)
+
+    if run_vanilla:
+        print("PyTorch for dataset", datasetname)
+    else:
+        print("HTD (dim1 " + str(dim1) + ", dim2 " + str(dim0) + ") for dataset", datasetname)
+
     ## DFZ: for MNIST (70% -> 78%), same for f4(0,2,0) and f4(0,2,1)
     # datasetname = "MNIST"
     # dataset1 = datasets.MNIST('../data', train=True, download=True,
@@ -227,12 +239,12 @@ def nn_topo(**args):
     # dataset2 = datasets.FashionMNIST('../data', train=False,
     #                    transform=transform)
 
-    BATCH_SIZE = 100 # Do NOT change this value
+    BATCH_SIZE = 100 # Do NOT change this value 100
 
     # Must be multiples of BATCH_SIZE
-    len_training = 400
-    len_test = 100
-    total_epochs = 3 # how many rounds; PyTorch's default value is 14
+    len_training = 10000
+    len_test = 1000
+    total_epochs = 10 # how many rounds; PyTorch's default value is 14
 
     #Load vanilla MNIST data
 
@@ -382,7 +394,7 @@ def list2batch(lst, bsize):
     #     yield lst[ndx:min(ndx + bsize, l)]
 
 def main():
-    nn_topo()
+    nn_topo(1, 1) #(dataset, 1: htd_is_on)
 
 if __name__ == '__main__':
     main()

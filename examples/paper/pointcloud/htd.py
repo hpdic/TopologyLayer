@@ -33,15 +33,15 @@ def main():
 def topo(*args):
 
     if args is not None:
-        whichdataset = args[0]
+        whichdataset = int(args[0])
         g_dim1wt = int(args[1])
         g_dim0wt = int(args[2])
 
     show_fig = False
 
-    # We have tested up to 1000 and 200 for initial experiments, which took too much time; we now use (400, 100)
-    len_training = 400    # 1 for trivial test; should be updated to a larger number (400 for our experiments)
-    len_test = 100        # 1 for trivial test; should be updated to a larger number (100 for our experiments)
+    # We have tested up to 1000 and 200 for initial experiments, which took too much time; we now use (300, 100)
+    len_training = 10000    # 1 for trivial test; should be updated to a larger number (400 for our experiments)
+    len_test = 1000        # 1 for trivial test; should be updated to a larger number (100 for our experiments)
 
     total_pixel_after = 0
     total_pixel_before = 0
@@ -49,18 +49,18 @@ def topo(*args):
     #
     #DFZ: parse the dataset name
     #
-    if "MNIST" == whichdataset or "1" == whichdataset:
+    if "MNIST" == whichdataset or 1 == whichdataset:
         datasetname = "MNIST"
         mnist_trainset = datasets.MNIST(root='./data', train=True, download=True, transform=None)
         mnist_testset = datasets.MNIST(root='./data', train=False, download=True, transform=None)
-    elif "KMNIST" == whichdataset or "2" == whichdataset:
+    elif "KMNIST" == whichdataset or 2 == whichdataset:
         datasetname = "KMNIST"
         mnist_trainset = datasets.KMNIST('./data', train=True, download=True,
                                    transform=None)
         mnist_testset = datasets.KMNIST('./data', train=False,
                                    transform=None)
 
-    elif "FashionMNIST" == whichdataset or "3" == whichdataset:
+    elif "FashionMNIST" == whichdataset or 3 == whichdataset:
         datasetname = "FashionMNIST"
         mnist_trainset = datasets.FashionMNIST('./data', train=True, download=True,
                                                transform=None)
@@ -201,7 +201,7 @@ def topo(*args):
 
             # print("Increase H1, decrease H0")
             # loss = -f3(dgminfo) + f4(dgminfo)
-            loss = f3(dgminfo) * g_dim1wt + f4(dgminfo) * g_dim0wt #not sure whether those weights will actually take effect
+            loss = -f3(dgminfo) * g_dim1wt - f4(dgminfo) * g_dim0wt #not sure whether those weights will actually take effect
 
             # print("f3(dgminfo) = " + str(f3(dgminfo)))
             # print("f4(dgminfo) = " + str(f4(dgminfo)))
@@ -231,8 +231,8 @@ def topo(*args):
     print("HTD started at", datetime.now().strftime("%H:%M:%S"))
     for i in range(len_test):
         # print("\n==========================================")
-        if i % 50 == 0:
-            print("Processing the " + str(i) + "-th test figure.")
+        if i % 25 == 0:
+            print("Processing the " + str(i) + "-th test figure at " + datetime.now().strftime("%H:%M:%S"))
         x_i, y_i = mnist_testset[i]
         # print("type(x_i) =", type(x_i))
 
@@ -265,8 +265,8 @@ def topo(*args):
             plt.close(fig)
 
         # print("Reduced pixels from", int(np.count_nonzero(np.array(x_i))), "to", np.count_nonzero(x_i_htd))
-        # fd.write("test " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
-        #          str(np.count_nonzero(x_i_htd)) + "\n")
+        fd.write("test " + str(i) + ", " + str(int(np.count_nonzero(np.array(x_i)))) + ", " +
+                 str(np.count_nonzero(x_i_htd)) + "\n")
 
         total_pixel_after += np.count_nonzero(x_i_htd)
         total_pixel_before += int(np.count_nonzero(np.array(x_i)))
@@ -278,9 +278,10 @@ def topo(*args):
         # new_im.convert("L").save(figfolder + "tmp_" + str(i) + ".png")
         testset_htd.append((new_im, y_i))
     # print("\nHTD stoped at", datetime.now().strftime("%H:%M:%S"))
-    htd_testset = htd_data_dir + datasetname + '_' + str(len_test) + '_htd_testset.pkl'
+    htd_testset = htd_data_dir + datasetname + '_htd_testset.pkl'
     file = open(htd_testset, 'wb')
     pickle.dump(testset_htd, file)
+    file.close()
 
     # HTD training set
     # len = len(mnist_trainset)
@@ -288,8 +289,8 @@ def topo(*args):
     # print("HTD training set started at", datetime.now().strftime("%H:%M:%S"))
     for i in range(len_training):
         # print("\n==========================================")
-        if i % 50 == 0:
-            print("Processing the " + str(i) + "-th training figure.")
+        if i % 25 == 0:
+            print("Processing the " + str(i) + "-th training figure at " + datetime.now().strftime("%H:%M:%S"))
         x_i, y_i = mnist_trainset[i]
         # print("type(x_i) =", type(x_i))
 
@@ -331,13 +332,13 @@ def topo(*args):
         trainset_htd.append((new_im, y_i))
     print("HTD stoped at", datetime.now().strftime("%H:%M:%S"), "\n")
 
-    return (total_pixel_before, total_pixel_after)
-
     # Save htd data into pickle files
-    htd_trainset = htd_data_dir + datasetname + '_' + str(len_training) + '_htd_trainset.pkl'
+    htd_trainset = htd_data_dir + datasetname + '_htd_trainset.pkl'
     file = open(htd_trainset, 'wb')
     pickle.dump(trainset_htd, file)
+    file.close()
 
+    return (total_pixel_before, total_pixel_after)
     # # Load data from pickle
     # loaded_data = pickle.load(open(htd_trainset, 'rb'))
     # print("type(loaded_data) =", type(loaded_data))
