@@ -15,17 +15,17 @@ else:
     print("Unknown dataset.")
     exit(0)
 myhtdflag = 1 # Don't change this unless you want to check the original NN; but that can be done at nn_htd.py
-fulllist = [1, 2, 4, 8, 16]
-weights_dim1 = [-2]
-weights_dim0 = [2]
+fulllist = [1, 2, 4, 8]
+weights_dim1 = [-8,-4,-2,-1,1,2,4,8]
+weights_dim0 = [8,4,2,1,-1,-2,-4,-8]
 
 #Results on file:
 res_folder = 'eval_results/'
 if not os.path.exists(res_folder):
     os.mkdir(res_folder)
 fd = open(res_folder + "summary_" + mydataset_name + ".csv", "w")
-fd.write("id, " + "seconds, " + "dim1, " + "dim0, " + "n_pixel_before, " + "n_pixel_after, " +
-         "epoch1, " + "epoch2, " + "epoch3" + "\n")
+# fd.write("id, " + "seconds, " + "dim1, " + "dim0, " + "n_pixel_before, " + "n_pixel_after, " +
+#          "epoch1, " + "epoch2, " + "epoch3" + "\n")
 
 #Sweep the space
 n_id = 0

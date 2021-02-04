@@ -125,9 +125,10 @@ def test(model, device, test_loader, n_tot):
 
     test_loss /= n_tot
 
-    print('Test result: average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
-        test_loss, correct, n_tot,
-        100. * correct / n_tot))
+    # print('Test result: average loss: {:.4f}, Accuracy: {}/{} ({:.0f}%)'.format(
+    #     test_loss, correct, n_tot,
+    #     100. * correct / n_tot))
+    print(correct / n_tot)
 
     return(correct / n_tot)
 
@@ -242,9 +243,9 @@ def nn_topo(dataset, htdflag, dim1='NA', dim0='NA'):
     BATCH_SIZE = 100 # Do NOT change this value 100
 
     # Must be multiples of BATCH_SIZE
-    len_training = 60000
-    len_test = 10000
-    total_epochs = 100 # how many rounds; PyTorch's default value is 14
+    len_training = 300
+    len_test = 100
+    total_epochs = 10 # how many rounds; PyTorch's default value is 14
 
     #Load vanilla MNIST data
 
@@ -394,7 +395,7 @@ def list2batch(lst, bsize):
     #     yield lst[ndx:min(ndx + bsize, l)]
 
 def main():
-    nn_topo(1, 1) #(dataset, 1: htd_is_on)
+    nn_topo(1, 0) #(dataset, 0: htd is off)
 
 if __name__ == '__main__':
     main()

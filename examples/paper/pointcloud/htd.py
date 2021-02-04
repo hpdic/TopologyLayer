@@ -40,9 +40,9 @@ def topo(*args):
     show_fig = False
 
     # We have tested up to 1000 and 200 for initial experiments, which took too much time; we now use (300, 100)
-    len_training = 60000    # 1 for trivial test; should be updated to a larger number (400 for our experiments)
-    len_test = 10000        # 1 for trivial test; should be updated to a larger number (100 for our experiments)
-    htd_batch = 500
+    len_training = 300    # 1 for trivial test; 60000 for fullsize; 300 for most experiments
+    len_test = 100        # 1 for trivial test; 10000 for fullsize; 100 for most experiments
+    htd_batch = 50
 
     total_pixel_after = 0
     total_pixel_before = 0
