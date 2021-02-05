@@ -2,9 +2,10 @@ import htd
 import nn_htd
 import os
 import time
+import numpy as np
 
 #Parameters:
-mydataset = 1 # TODO: I think we only have time for this dataset (MNIST)
+mydataset = 2 # TODO: I think we only have time for this dataset (MNIST)
 if 1 == mydataset:
     mydataset_name = 'MNIST'
 elif 2 == mydataset:
@@ -15,9 +16,9 @@ else:
     print("Unknown dataset.")
     exit(0)
 myhtdflag = 1 # Don't change this unless you want to check the original NN; but that can be done at nn_htd.py
-fulllist = [1, 2, 4, 8]
-weights_dim1 = [-8,-4,-2,-1,1,2,4,8]
-weights_dim0 = [8,4,2,1,-1,-2,-4,-8]
+fulllist = np.array([8, 4, 2, 1, -1, -2, -4, -8])
+weights_dim1 = -fulllist
+weights_dim0 = fulllist
 
 #Results on file:
 res_folder = 'eval_results/'

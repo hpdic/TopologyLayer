@@ -249,7 +249,19 @@ def topo(*args):
             plt.close(fig)
 
         x_i_2d = np.asarray(np.nonzero(x_i)).T
-        x_i_2d_htd = topo_reduce(x_i_2d).detach().numpy().astype(int)
+        x_i_2d_htd_raw = topo_reduce(x_i_2d).detach().numpy().astype(int)
+
+        # _x = x_i_2d_htd_raw[:,0]
+        # print("_x =", _x)
+        # _xx = np.piecewise(_x, [_x < 0, _x > 27], [0, 27, lambda _x: _x])
+        # print("_xx =", _xx)
+        # exit(0)
+
+        # this is very important, as HTD might convert pixels out of the picture boundary
+        # there are two ways: (i) remove the point (ii) place the pixel on the boundary.
+        # we are taking the second appraoch for now
+        x_i_2d_htd = np.piecewise(x_i_2d_htd_raw, [x_i_2d_htd_raw < 0, x_i_2d_htd_raw > 27],
+                                  [0, 27, lambda x_i_2d_htd_raw: x_i_2d_htd_raw])
         x_i_htd = np.zeros((28, 28))
         x_i_htd[tuple(x_i_2d_htd.T)] = 1
 
@@ -307,7 +319,9 @@ def topo(*args):
             plt.close(fig)
 
         x_i_2d = np.asarray(np.nonzero(x_i)).T
-        x_i_2d_htd = topo_reduce(x_i_2d).detach().numpy().astype(int)
+        x_i_2d_htd_raw = topo_reduce(x_i_2d).detach().numpy().astype(int)
+        x_i_2d_htd = np.piecewise(x_i_2d_htd_raw, [x_i_2d_htd_raw < 0, x_i_2d_htd_raw > 27],
+                                  [0, 27, lambda x_i_2d_htd_raw: x_i_2d_htd_raw])
         x_i_htd = np.zeros((28, 28))
         x_i_htd[tuple(x_i_2d_htd.T)] = 1
 
