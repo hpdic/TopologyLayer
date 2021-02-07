@@ -17,7 +17,7 @@
 ### To run NN on original data: python mnist.py (for sanity check of NN functionality)
 ### To denoise a single data set: python htd.py (not used as an entry point recently)
 ### To run NN on binarized data: python nn_htd.py (at the program bottom, set the dataset value = [1,2,3] in main() for MNIST, KMNIST, and FMNIST) 
-### To run NN on topologized data: python run.py (at the program top, set dataset = [1,2,3], and adjust the dimension lists)
+### To run NN on topologized data: python run.py (at the program top, set mydataset = [1,2,3], and adjust the dimension lists "weights_dim[0|1]")
 
 
 
